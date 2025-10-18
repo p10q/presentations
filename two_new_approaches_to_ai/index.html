@@ -104,23 +104,32 @@
             margin: 0 auto;
         }
         
+        /* Slide title above both columns */
+        .slide-title {
+            grid-column: 1 / -1;
+            font-size: clamp(1.3rem, 2vw, 1.8rem);
+            color: #a78bfa;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
         /* Two-column layout explicitly for slides 2-6 */
         #slide2 .slide-content {
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
         }
-        
+
         #slide3 .slide-content {
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
         }
-        
+
         #slide4 .slide-content {
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
         }
-        
+
         #slide5 .slide-content {
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
         }
-        
+
         #slide6 .slide-content {
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
         }
@@ -504,8 +513,8 @@
         <!-- Slide 2: Knowledge Compression Introduction -->
         <div class="slide" id="slide2">
             <div class="slide-content">
+                <h2 class="slide-title">Idea 1: Knowledge Compression</h2>
                 <div class="left-panel">
-                    <h2>Idea 1: Knowledge Compression</h2>
                     <div class="info-box">
                         <p>Complex patterns can be represented with minimal information when we understand their underlying structure.</p>
                         <p style="margin-top: 1rem;">Example: <span class="highlight">1000 equilateral triangles</span> on a screen.</p>
@@ -561,8 +570,8 @@
         <!-- Slide 3: Orthogonal Representation -->
         <div class="slide" id="slide3">
             <div class="slide-content">
+                <h2 class="slide-title">Orthogonal Representation</h2>
                 <div class="left-panel">
-                    <h2>Orthogonal Representation</h2>
                     <div class="info-box">
                         <p>Every aspect of a system that is <span class="highlight">orthogonal</span> (independent) can be represented separately.</p>
                         <p style="margin-top: 1rem;">Similar to eigenvectors - finding the most efficient basis for representing information.</p>
@@ -602,8 +611,8 @@
         <!-- Slide 4: Level of Detail with Cell Example -->
         <div class="slide" id="slide4">
             <div class="slide-content">
+                <h2 class="slide-title">Idea 2: Adaptive Level of Detail</h2>
                 <div class="left-panel">
-                    <h2>Idea 2: Adaptive Level of Detail</h2>
                     <div class="info-box">
                         <p>Part of intelligence means knowing <span class="highlight">what level of detail</span> you need to solve a problem.</p>
                         <p style="margin-top: 1rem;">Example: Modeling a biological cell</p>
@@ -648,9 +657,10 @@
                         <input type="range" id="lodSlider" min="1" max="15" value="8" oninput="updateLOD(this.value)">
                     </div>
 
-                    <div id="compressionParams" style="margin-top: 15px; padding: 10px; background: rgba(99, 102, 241, 0.1); border-radius: 5px; font-size: 12px; min-height: 60px;">
+                    <div id="compressionParams" style="margin-top: 15px; padding: 10px; background: rgba(99, 102, 241, 0.1); border-radius: 5px; font-size: 12px; min-height: 80px;">
                         <strong>Compression Parameters:</strong>
                         <div id="paramDisplay" style="margin-top: 5px; color: #6b7280;"></div>
+                        <div id="errorThreshold" style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(99, 102, 241, 0.2);"></div>
                     </div>
                 </div>
             </div>
@@ -659,8 +669,8 @@
         <!-- Slide 5: The Future -->
         <div class="slide" id="slide5">
             <div class="slide-content">
+                <h2 class="slide-title">The Path to AGI</h2>
                 <div class="left-panel">
-                    <h2>The Path to AGI</h2>
                     <div class="info-box">
                         <p>Combine <span class="highlight">optimal compression</span> with <span class="highlight">adaptive complexity</span></p>
                         <p style="margin-top: 1rem;">Result: AI that can efficiently model any system at the right level of detail</p>
@@ -3445,24 +3455,130 @@
 
         function updateCompressionDisplay(level) {
             const display = document.getElementById('paramDisplay');
+            const errorDisplay = document.getElementById('errorThreshold');
             if (!display) return;
 
             const compressionData = {
-                1: { params: 'color, radius', bits: '~8 bits', desc: 'Shape = circle(1), Color(4), Size(3)' },
-                2: { params: 'petals[6], colors[2]', bits: '~16 bits', desc: 'Petal count(3), Petal shape(4), Colors(9)' },
-                3: { params: 'texture_gradient[3], veins[n]', bits: '~32 bits', desc: 'Gradients(12), Vein patterns(20)' },
-                4: { params: 'cell_grid[x,y], cell_type', bits: '~128 bits', desc: 'Cell positions(64), Cell shapes(64)' },
-                5: { params: 'tissue_layers[4], density_map', bits: '~256 bits', desc: 'Layer types(32), Cell densities(224)' },
-                6: { params: 'organelles[n], positions[3D]', bits: '~512 bits', desc: 'Organelle types(128), Positions(384)' },
-                7: { params: 'membrane_proteins, internal_struct', bits: '~1KB', desc: 'Protein positions(512), Structures(512)' },
-                8: { params: 'thylakoid_stacks, grana_network', bits: '~2KB', desc: 'Stack geometry(1024), Connections(1024)' },
-                9: { params: 'lipid_bilayer, protein_complex', bits: '~4KB', desc: 'Lipid arrangement(2048), Proteins(2048)' },
-                10: { params: 'subunit_assembly, active_sites', bits: '~8KB', desc: 'Subunit positions(4096), Binding sites(4096)' },
-                11: { params: 'polymer_chains, catalytic_state', bits: '~16KB', desc: 'Chain conformations(8192), States(8192)' },
-                12: { params: 'residue_sequence, fold_pattern', bits: '~32KB', desc: 'Amino acids(16384), Secondary structure(16384)' },
-                13: { params: 'atom_positions, bond_network', bits: '~64KB', desc: 'XYZ coordinates(32768), Connectivity(32768)' },
-                14: { params: 'wavefunctions, orbital_occupancy', bits: '~128KB', desc: 'Quantum states(65536), Electron density(65536)' },
-                15: { params: 'force_field, trajectories', bits: '~256KB', desc: 'Force vectors(131072), Time evolution(131072)' }
+                1: {
+                    params: 'color, radius',
+                    bits: '~8 bits',
+                    desc: 'Shape = circle(1), Color(4), Size(3)',
+                    error: 'σ² ≈ 0.08',
+                    threshold: 'Petal structure approximated as random variation',
+                    influences: 'Next level adds: Individual petal geometry (high structural info)'
+                },
+                2: {
+                    params: 'petals[6], colors[2]',
+                    bits: '~16 bits',
+                    desc: 'Petal count(3), Petal shape(4), Colors(9)',
+                    error: 'σ² ≈ 0.03',
+                    threshold: 'Surface texture approximated as noise',
+                    influences: 'Next level adds: Gradient patterns (mostly aesthetic)'
+                },
+                3: {
+                    params: 'texture_gradient[3], veins[n]',
+                    bits: '~32 bits',
+                    desc: 'Gradients(12), Vein patterns(20)',
+                    error: 'σ² ≈ 0.09',
+                    threshold: 'Cell boundaries approximated as uniform texture',
+                    influences: 'Next level adds: Thousands of individual cells (huge jump)'
+                },
+                4: {
+                    params: 'cell_grid[x,y], cell_type',
+                    bits: '~128 bits',
+                    desc: 'Cell positions(64), Cell shapes(64)',
+                    error: 'σ² ≈ 0.02',
+                    threshold: 'Tissue microstructure approximated as homogeneous',
+                    influences: 'Next level adds: Layer differentiation (mostly structural)'
+                },
+                5: {
+                    params: 'tissue_layers[4], density_map',
+                    bits: '~256 bits',
+                    desc: 'Layer types(32), Cell densities(224)',
+                    error: 'σ² ≈ 0.07',
+                    threshold: 'Organelle distribution approximated as statistical',
+                    influences: 'Next level adds: Dozens of organelles per cell (complex dynamics)'
+                },
+                6: {
+                    params: 'organelles[n], positions[3D]',
+                    bits: '~512 bits',
+                    desc: 'Organelle types(128), Positions(384)',
+                    error: 'σ² ≈ 0.04',
+                    threshold: 'Internal structures approximated as simple shapes',
+                    influences: 'Next level adds: Detailed architecture (moderate complexity)'
+                },
+                7: {
+                    params: 'membrane_proteins, internal_struct',
+                    bits: '~1KB',
+                    desc: 'Protein positions(512), Structures(512)',
+                    error: 'σ² ≈ 0.06',
+                    threshold: 'Chloroplast internals approximated as uniform',
+                    influences: 'Next level adds: Complex thylakoid networks'
+                },
+                8: {
+                    params: 'thylakoid_stacks, grana_network',
+                    bits: '~2KB',
+                    desc: 'Stack geometry(1024), Connections(1024)',
+                    error: 'σ² ≈ 0.10',
+                    threshold: 'Membrane proteins approximated as point masses',
+                    influences: 'Next level adds: Lipid dynamics (highly variable)'
+                },
+                9: {
+                    params: 'lipid_bilayer, protein_complex',
+                    bits: '~4KB',
+                    desc: 'Lipid arrangement(2048), Proteins(2048)',
+                    error: 'σ² ≈ 0.05',
+                    threshold: 'Protein subunits approximated as rigid bodies',
+                    influences: 'Next level adds: Subunit flexibility (moderate dynamics)'
+                },
+                10: {
+                    params: 'subunit_assembly, active_sites',
+                    bits: '~8KB',
+                    desc: 'Subunit positions(4096), Binding sites(4096)',
+                    error: 'σ² ≈ 0.09',
+                    threshold: 'Molecular machinery approximated as static',
+                    influences: 'Next level adds: Conformational changes (high dynamics)'
+                },
+                11: {
+                    params: 'polymer_chains, catalytic_state',
+                    bits: '~16KB',
+                    desc: 'Chain conformations(8192), States(8192)',
+                    error: 'σ² ≈ 0.03',
+                    threshold: 'Amino acid side chains approximated as average',
+                    influences: 'Next level adds: Residue detail (mostly structural)'
+                },
+                12: {
+                    params: 'residue_sequence, fold_pattern',
+                    bits: '~32KB',
+                    desc: 'Amino acids(16384), Secondary structure(16384)',
+                    error: 'σ² ≈ 0.08',
+                    threshold: 'Bond angles/lengths approximated as ideal',
+                    influences: 'Next level adds: All atomic positions (massive increase)'
+                },
+                13: {
+                    params: 'atom_positions, bond_network',
+                    bits: '~64KB',
+                    desc: 'XYZ coordinates(32768), Connectivity(32768)',
+                    error: 'σ² ≈ 0.06',
+                    threshold: 'Electron density approximated as spherical',
+                    influences: 'Next level adds: Quantum orbital shapes'
+                },
+                14: {
+                    params: 'wavefunctions, orbital_occupancy',
+                    bits: '~128KB',
+                    desc: 'Quantum states(65536), Electron density(65536)',
+                    error: 'σ² ≈ 0.10',
+                    threshold: 'Thermal motion approximated as harmonic',
+                    influences: 'Next level adds: Full molecular dynamics (extreme dynamics)'
+                },
+                15: {
+                    params: 'force_field, trajectories',
+                    bits: '~256KB',
+                    desc: 'Force vectors(131072), Time evolution(131072)',
+                    error: 'σ² ≈ 0',
+                    threshold: 'Full representation - no approximation',
+                    influences: 'Complete molecular dynamics simulation'
+                }
             };
 
             const data = compressionData[level];
@@ -3471,6 +3587,14 @@
                 <div style="margin-bottom: 5px;"><strong>Compressed to:</strong> ${data.bits}</div>
                 <div style="font-size: 11px; opacity: 0.8;">${data.desc}</div>
             `;
+
+            if (errorDisplay) {
+                errorDisplay.innerHTML = `
+                    <div style="margin-bottom: 5px; color: #f59e0b;"><strong>Variance from next level:</strong> ${data.error}</div>
+                    <div style="font-size: 11px; opacity: 0.9; color: #ef4444;">${data.threshold}</div>
+                    <div style="font-size: 11px; opacity: 0.7; margin-top: 3px; color: #10b981;">${data.influences}</div>
+                `;
+            }
         }
 
         function updateLOD(value) {
