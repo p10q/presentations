@@ -419,55 +419,57 @@
 
         <!-- Slide 2: Knowledge Compression Introduction -->
         <div class="slide" id="slide2" style="display: none;">
-            <div class="content">
-                <h2>Idea 1: Knowledge Compression</h2>
-                <div class="info-box">
-                    <p>Complex patterns can be represented with minimal information when we understand their underlying structure.</p>
-                    <p style="margin-top: 1rem;">Example: <span class="highlight">1000 equilateral triangles</span> on a screen.</p>
-                    <p style="margin-top: 0.5rem; color: #a78bfa;">
-                        The same visual information can be stored as either 6000 coordinates<br>
-                        or ~10 parameters that describe the pattern.
-                    </p>
-                </div>
-                
-                <div class="visualization">
-                    <canvas id="triangleCanvas"></canvas>
-                </div>
-                
-                <div class="compression-comparison">
-                    <div class="comparison-box">
-                        <h3>Traditional Storage</h3>
-                        <p>Store every vertex position</p>
-                        <div class="stats">6000 numbers</div>
-                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">
-                            (1000 triangles × 3 vertices × 2 coordinates)
-                        </p>
-                        <p style="color: #a78bfa; margin-top: 1rem; font-size: 0.9rem;">
-                            • Large storage requirement<br>
-                            • No pattern understanding
+            <div class="slide-content">
+                <div class="left-panel">
+                    <h2>Idea 1: Knowledge Compression</h2>
+                    <div class="info-box">
+                        <p>Complex patterns can be represented with minimal information when we understand their underlying structure.</p>
+                        <p style="margin-top: 1rem;">Example: <span class="highlight">1000 equilateral triangles</span> on a screen.</p>
+                        <p style="margin-top: 0.5rem; color: #a78bfa;">
+                            The same visual information can be stored as either 6000 coordinates or ~10 parameters that describe the pattern.
                         </p>
                     </div>
-                    <div class="comparison-box">
-                        <h3>Compressed Representation</h3>
-                        <p>Store pattern parameters</p>
-                        <div class="stats">~10 numbers</div>
-                        <ul style="text-align: left; margin-top: 0.5rem; font-size: 0.9rem;">
-                            <li>Triangle size</li>
-                            <li>Count</li>
-                            <li>Distribution randomness</li>
-                            <li>Average spacing</li>
-                            <li>Color parameters</li>
-                        </ul>
-                        <p style="color: #a78bfa; margin-top: 1rem; font-size: 0.9rem;">
-                            • Same visual result<br>
-                            • 600:1 compression ratio
-                        </p>
+
+                    <div class="compression-comparison" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+                        <div class="comparison-box">
+                            <h3>Traditional Storage</h3>
+                            <p>Store every vertex position</p>
+                            <div class="stats">6000 numbers</div>
+                            <p style="font-size: 0.85rem; margin-top: 0.5rem;">
+                                (1000 triangles × 3 vertices × 2 coordinates)
+                            </p>
+                            <p style="color: #a78bfa; margin-top: 0.8rem; font-size: 0.85rem;">
+                                • Large storage requirement<br>
+                                • No pattern understanding
+                            </p>
+                        </div>
+                        <div class="comparison-box">
+                            <h3>Compressed Representation</h3>
+                            <p>Store pattern parameters</p>
+                            <div class="stats">~10 numbers</div>
+                            <ul style="text-align: left; margin-top: 0.5rem; font-size: 0.85rem; padding-left: 1rem;">
+                                <li>Triangle size</li>
+                                <li>Count</li>
+                                <li>Distribution randomness</li>
+                                <li>Average spacing</li>
+                                <li>Color parameters</li>
+                            </ul>
+                            <p style="color: #a78bfa; margin-top: 0.8rem; font-size: 0.85rem;">
+                                • Same visual result<br>
+                                • 600:1 compression ratio
+                            </p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="controls">
-                    <button onclick="regenerateTriangles()">Regenerate Pattern</button>
-                    <button onclick="toggleCompression()">Toggle: Raw Storage vs Compressed</button>
+
+                <div class="right-panel">
+                    <div class="visualization">
+                        <canvas id="triangleCanvas"></canvas>
+                    </div>
+
+                    <div class="controls">
+                        <button onclick="toggleCompression()">Toggle: Raw Storage vs Compressed</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -506,101 +508,67 @@
                     </div>
                     
                     <div class="controls">
-                        <button onclick="animateEigenDecomposition()">Show Decomposition</button>
-                        <button onclick="reconstructFromEigen()">Reconstruct</button>
+                        <button onclick="animateEigenDecomposition()">Decompose to Orthogonal</button>
+                        <button onclick="reconstructFromEigen()">Reset to Original</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 4: Level of Detail -->
+        <!-- Slide 4: Level of Detail with Cell Example -->
         <div class="slide" id="slide4" style="display: none;">
-            <div class="content">
-                <h2>Idea 2: Adaptive Level of Detail</h2>
-                <div class="info-box">
-                    <p>Part of intelligence means knowing <span class="highlight">what level of detail</span> you need to solve a problem.</p>
-                    <p style="margin-top: 1rem;">Dial complexity up or down based on the task at hand.</p>
-                </div>
-                
-                <div class="visualization">
-                    <canvas id="lodCanvas"></canvas>
-                </div>
-                
-                <div class="slider-container">
-                    <label>Detail Level: <span id="lodValue">5</span></label>
-                    <input type="range" id="lodSlider" min="1" max="10" value="5" oninput="updateLOD(this.value)">
-                </div>
-                
-                <div class="info-box" style="margin-top: 2rem;">
-                    <h3 id="lodTitle">Medium Detail</h3>
-                    <p id="lodDescription">Modeling with ~1,000 parameters. Suitable for general pattern recognition.</p>
-                    <div class="parameter">
-                        <label>Parameters Used:</label>
-                        <span id="paramCount" style="color: #a78bfa;">1,000</span>
-                    </div>
-                    <div class="parameter">
-                        <label>Compression Ratio:</label>
-                        <span id="compressionRatio" style="color: #a78bfa;">100:1</span>
-                    </div>
-                </div>
-                
-                <div class="controls">
-                    <button onclick="simulateProblem('simple')">Task: Identify Species</button>
-                    <button onclick="simulateProblem('complex')">Task: Analyze Cell Structure</button>
-                    <button onclick="autoAdapt()">Auto-Adapt to Task</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Biological Example -->
-        <div class="slide" id="slide5" style="display: none;">
             <div class="slide-content">
                 <div class="left-panel">
-                    <h2>Real-World Application: Modeling a Cell</h2>
+                    <h2>Idea 2: Adaptive Level of Detail</h2>
                     <div class="info-box">
-                        <p>From <span class="highlight">billions of DNA base pairs</span> to <span class="highlight">~10,000 numbers</span></p>
-                        <p style="margin-top: 1rem;">Adjusting detail level based on the specific problem being solved.</p>
+                        <p>Part of intelligence means knowing <span class="highlight">what level of detail</span> you need to solve a problem.</p>
+                        <p style="margin-top: 1rem;">Example: Modeling a biological cell</p>
+                        <p style="margin-top: 0.5rem; color: #a78bfa;">From billions of DNA base pairs to just the parameters you need.</p>
                     </div>
-                    
-                    <div class="compression-comparison">
-                        <div class="comparison-box">
-                            <h3>Problem: Cell Type Identification</h3>
-                            <p>Parameters needed: <span class="stats">100-1,000</span></p>
-                            <ul style="text-align: left; font-size: 0.85rem;">
-                                <li>Membrane shape</li>
-                                <li>Nucleus size/position</li>
-                                <li>Major organelle distribution</li>
-                            </ul>
+
+                    <div class="info-box" style="margin-top: 1.5rem;">
+                        <h3 id="lodTitle">Cellular Level</h3>
+                        <p id="lodDescription">Viewing whole cell structure and major organelles.</p>
+                        <div class="parameter">
+                            <label>Parameters Used:</label>
+                            <span id="paramCount" style="color: #a78bfa;">1,000</span>
                         </div>
+                        <div class="parameter">
+                            <label>View Level:</label>
+                            <span id="viewLevel" style="color: #a78bfa;">Cell Overview</span>
+                        </div>
+                    </div>
+
+                    <div class="compression-comparison" style="display: grid; grid-template-columns: 1fr; gap: 0.6rem; margin-top: 1rem;">
                         <div class="comparison-box">
-                            <h3>Problem: Metabolic Pathway Analysis</h3>
-                            <p>Parameters needed: <span class="stats">10,000-100,000</span></p>
-                            <ul style="text-align: left; font-size: 0.85rem;">
-                                <li>Protein conformations</li>
-                                <li>ATP/ADP ratios</li>
-                                <li>Enzyme kinetics</li>
-                                <li>DNA transcription factors</li>
-                            </ul>
+                            <h3>Task-Based Detail Selection</h3>
+                            <div style="font-size: 0.85rem; line-height: 1.6;">
+                                <p><strong>Level 1-3: Cell Type</strong><br>
+                                <span style="color: #a78bfa; font-size: 0.8rem;">Shape, size, basic structure<br>100-1,000 parameters</span></p>
+                                <p style="margin-top: 0.5rem;"><strong>Level 4-7: Organelle Analysis</strong><br>
+                                <span style="color: #a78bfa; font-size: 0.8rem;">Mitochondria, nucleus, ER detail<br>1,000-10,000 parameters</span></p>
+                                <p style="margin-top: 0.5rem;"><strong>Level 8-10: Molecular Dynamics</strong><br>
+                                <span style="color: #a78bfa; font-size: 0.8rem;">Proteins, DNA, chemical reactions<br>10,000-100,000 parameters</span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="right-panel">
                     <div class="visualization">
-                        <canvas id="cellCanvas"></canvas>
+                        <canvas id="lodCanvas"></canvas>
                     </div>
-                    
-                    <div class="controls">
-                        <button onclick="zoomToCell()">View: Whole Cell</button>
-                        <button onclick="zoomToOrganelle()">View: Organelle Detail</button>
-                        <button onclick="zoomToMolecular()">View: Molecular Level</button>
+
+                    <div class="slider-container">
+                        <label>Detail Level: <span id="lodValue">5</span></label>
+                        <input type="range" id="lodSlider" min="1" max="10" value="5" oninput="updateLOD(this.value)">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: The Future -->
-        <div class="slide" id="slide6" style="display: none;">
+        <!-- Slide 5: The Future -->
+        <div class="slide" id="slide5" style="display: none;">
             <div class="slide-content">
                 <div class="left-panel">
                     <h2>The Path to AGI</h2>
@@ -670,7 +638,7 @@
         }
         
         let currentSlide = 1;
-        const totalSlides = 6;
+        const totalSlides = 5;
         let compressionView = false;
         let triangles = [];
         let animationFrame;
@@ -772,12 +740,9 @@
                         initEigenVisualization();
                         break;
                     case 4:
-                        initLODVisualization();
+                        initLODCellVisualization();
                         break;
                     case 5:
-                        initCellVisualization();
-                        break;
-                    case 6:
                         // Last slide - no special initialization needed
                         break;
                 }
@@ -940,109 +905,277 @@
             }, 150);
         }
 
+        let eigenAnimationState = 'redundant';
+        let eigenAnimationProgress = 0;
+        let dataPoints = [];
+
         function initEigenVisualization() {
             const canvas = document.getElementById('eigenCanvas');
             const ctx = canvas.getContext('2d');
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
-            
-            drawEigenSpace(ctx);
+
+            // Initialize data points with correlated (redundant) positions
+            dataPoints = [];
+            for (let i = 0; i < 100; i++) {
+                const t = i / 100;
+                const angle = t * Math.PI * 2;
+                const radius = 30 + Math.random() * 80;
+                const correlation = 0.8; // High correlation = redundancy
+                dataPoints.push({
+                    x: Math.cos(angle) * radius,
+                    y: Math.sin(angle) * radius * 0.4 + Math.cos(angle) * radius * correlation,
+                    originalX: Math.cos(angle) * radius,
+                    originalY: Math.sin(angle) * radius * 0.4 + Math.cos(angle) * radius * correlation,
+                    color: `hsl(${260 + i * 1.4}, 70%, 60%)`,
+                    eigenX: 0,
+                    eigenY: 0
+                });
+            }
+
+            // Calculate orthogonal representation
+            dataPoints.forEach((p, i) => {
+                // Project onto orthogonal axes
+                const angle1 = -Math.PI / 6;
+                const angle2 = angle1 + Math.PI / 2;
+
+                // Project onto first eigenvector
+                const proj1 = p.x * Math.cos(angle1) + p.y * Math.sin(angle1);
+                // Project onto second eigenvector
+                const proj2 = p.x * Math.cos(angle2) + p.y * Math.sin(angle2);
+
+                p.eigenX = proj1 * Math.cos(angle1) + proj2 * Math.cos(angle2);
+                p.eigenY = proj1 * Math.sin(angle1) + proj2 * Math.sin(angle2);
+            });
+
+            drawEigenSpace(ctx, 'redundant', 0);
         }
 
-        function drawEigenSpace(ctx) {
+        function drawEigenSpace(ctx, state = 'redundant', progress = 0) {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
             const centerX = ctx.canvas.width / 2;
             const centerY = ctx.canvas.height / 2;
-            
+
+            // Draw title based on state
+            ctx.fillStyle = '#a78bfa';
+            ctx.font = 'bold 14px monospace';
+            if (state === 'redundant') {
+                ctx.fillText('Redundant Representation', 20, 25);
+                ctx.font = '12px monospace';
+                ctx.fillText('Data with correlated dimensions', 20, 45);
+            } else if (state === 'decomposing') {
+                ctx.fillText('Decomposing...', 20, 25);
+                ctx.font = '12px monospace';
+                ctx.fillText(`Finding orthogonal basis (${Math.round(progress * 100)}%)`, 20, 45);
+            } else if (state === 'orthogonal') {
+                ctx.fillText('Orthogonal Representation', 20, 25);
+                ctx.font = '12px monospace';
+                ctx.fillText('Independent dimensions extracted', 20, 45);
+            }
+
             // Draw coordinate system
-            ctx.strokeStyle = '#667eea';
-            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'rgba(102, 126, 234, 0.3)';
+            ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(50, centerY);
             ctx.lineTo(ctx.canvas.width - 50, centerY);
             ctx.moveTo(centerX, 50);
             ctx.lineTo(centerX, ctx.canvas.height - 50);
             ctx.stroke();
-            
-            // Draw eigenvectors
-            ctx.strokeStyle = '#f093fb';
-            ctx.lineWidth = 3;
-            
-            // First eigenvector
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.lineTo(centerX + 150, centerY - 100);
-            ctx.stroke();
-            
-            // Second eigenvector
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.lineTo(centerX + 100, centerY + 120);
-            ctx.stroke();
-            
+
+            // Draw axes labels
+            ctx.fillStyle = 'rgba(102, 126, 234, 0.6)';
+            ctx.font = '11px monospace';
+            ctx.fillText('X', ctx.canvas.width - 45, centerY - 5);
+            ctx.fillText('Y', centerX + 5, 55);
+
+            // Draw eigenvectors (fade in during decomposition)
+            const eigenAlpha = state === 'redundant' ? 0 : (state === 'decomposing' ? progress : 1);
+            if (eigenAlpha > 0) {
+                ctx.strokeStyle = `rgba(240, 147, 251, ${eigenAlpha})`;
+                ctx.lineWidth = 3;
+
+                const angle1 = -Math.PI / 6;
+                const angle2 = angle1 + Math.PI / 2;
+                const vecLength = 120;
+
+                // First eigenvector
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(centerX + Math.cos(angle1) * vecLength, centerY + Math.sin(angle1) * vecLength);
+                ctx.stroke();
+
+                // Arrow for first eigenvector
+                ctx.beginPath();
+                const arrow1X = centerX + Math.cos(angle1) * vecLength;
+                const arrow1Y = centerY + Math.sin(angle1) * vecLength;
+                ctx.moveTo(arrow1X, arrow1Y);
+                ctx.lineTo(arrow1X - 10 * Math.cos(angle1 - 0.3), arrow1Y - 10 * Math.sin(angle1 - 0.3));
+                ctx.moveTo(arrow1X, arrow1Y);
+                ctx.lineTo(arrow1X - 10 * Math.cos(angle1 + 0.3), arrow1Y - 10 * Math.sin(angle1 + 0.3));
+                ctx.stroke();
+
+                // Second eigenvector
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(centerX + Math.cos(angle2) * vecLength, centerY + Math.sin(angle2) * vecLength);
+                ctx.stroke();
+
+                // Arrow for second eigenvector
+                ctx.beginPath();
+                const arrow2X = centerX + Math.cos(angle2) * vecLength;
+                const arrow2Y = centerY + Math.sin(angle2) * vecLength;
+                ctx.moveTo(arrow2X, arrow2Y);
+                ctx.lineTo(arrow2X - 10 * Math.cos(angle2 - 0.3), arrow2Y - 10 * Math.sin(angle2 - 0.3));
+                ctx.moveTo(arrow2X, arrow2Y);
+                ctx.lineTo(arrow2X - 10 * Math.cos(angle2 + 0.3), arrow2Y - 10 * Math.sin(angle2 + 0.3));
+                ctx.stroke();
+
+                // Labels for eigenvectors
+                ctx.fillStyle = `rgba(240, 147, 251, ${eigenAlpha})`;
+                ctx.font = 'bold 12px monospace';
+                ctx.fillText('PC1', arrow1X + 10, arrow1Y);
+                ctx.fillText('PC2', arrow2X + 10, arrow2Y);
+            }
+
             // Draw data points
-            for (let i = 0; i < 100; i++) {
-                const angle = (i / 100) * Math.PI * 2;
-                const radius = 50 + Math.random() * 100;
-                const x = centerX + Math.cos(angle) * radius;
-                const y = centerY + Math.sin(angle) * radius * 0.6;
-                
-                ctx.fillStyle = `hsl(${260 + i * 1.4}, 70%, 60%)`;
+            dataPoints.forEach((point, i) => {
+                let x, y;
+                if (state === 'redundant') {
+                    x = centerX + point.originalX;
+                    y = centerY + point.originalY;
+                } else if (state === 'decomposing') {
+                    // Interpolate between original and orthogonal positions
+                    x = centerX + point.originalX * (1 - progress) + point.eigenX * progress;
+                    y = centerY + point.originalY * (1 - progress) + point.eigenY * progress;
+                } else {
+                    x = centerX + point.eigenX;
+                    y = centerY + point.eigenY;
+                }
+
+                ctx.fillStyle = point.color;
+                ctx.globalAlpha = 0.8;
                 ctx.beginPath();
                 ctx.arc(x, y, 3, 0, Math.PI * 2);
                 ctx.fill();
+
+                // Draw projection lines during decomposition
+                if (state === 'decomposing' && progress > 0.3 && progress < 0.9 && i % 10 === 0) {
+                    ctx.strokeStyle = `rgba(102, 126, 234, ${(progress - 0.3) * 0.3})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.setLineDash([2, 2]);
+                    ctx.beginPath();
+                    ctx.moveTo(centerX + point.originalX, centerY + point.originalY);
+                    ctx.lineTo(centerX + point.eigenX, centerY + point.eigenY);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+            });
+
+            ctx.globalAlpha = 1;
+
+            // Show correlation indicator
+            if (state === 'redundant') {
+                ctx.fillStyle = 'rgba(239, 68, 68, 0.6)';
+                ctx.font = '12px monospace';
+                ctx.fillText('High correlation', ctx.canvas.width - 140, ctx.canvas.height - 20);
+                ctx.fillText('(redundancy)', ctx.canvas.width - 140, ctx.canvas.height - 5);
+            } else if (state === 'orthogonal') {
+                ctx.fillStyle = 'rgba(34, 197, 94, 0.6)';
+                ctx.font = '12px monospace';
+                ctx.fillText('Zero correlation', ctx.canvas.width - 140, ctx.canvas.height - 20);
+                ctx.fillText('(independent)', ctx.canvas.width - 140, ctx.canvas.height - 5);
             }
         }
 
         function animateEigenDecomposition() {
             const canvas = document.getElementById('eigenCanvas');
             const ctx = canvas.getContext('2d');
-            let progress = 0;
-            
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                drawEigenSpace(ctx);
-                
-                progress += 0.02;
-                if (progress < 1) {
-                    ctx.globalAlpha = progress;
-                    ctx.fillStyle = '#a78bfa';
-                    ctx.font = '16px monospace';
-                    ctx.fillText('Decomposing into orthogonal components...', 50, 30);
-                    animationFrame = requestAnimationFrame(animate);
-                }
+
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
             }
+
+            eigenAnimationState = 'decomposing';
+            eigenAnimationProgress = 0;
+
+            function animate() {
+                eigenAnimationProgress += 0.015;
+
+                if (eigenAnimationProgress >= 1) {
+                    eigenAnimationProgress = 1;
+                    eigenAnimationState = 'orthogonal';
+                    drawEigenSpace(ctx, eigenAnimationState, eigenAnimationProgress);
+
+                    // Update the parameter values to show the transformation
+                    setTimeout(() => {
+                        document.getElementById('colorValue').textContent = 'PC1: 0.82';
+                        document.getElementById('sizeValue').textContent = 'PC2: 0.15';
+                        document.getElementById('frequencyValue').textContent = 'Variance: 85%';
+                        document.getElementById('spatialValue').textContent = 'Variance: 15%';
+                    }, 500);
+                    return;
+                }
+
+                drawEigenSpace(ctx, eigenAnimationState, eigenAnimationProgress);
+                animationFrame = requestAnimationFrame(animate);
+            }
+
             animate();
         }
 
         function reconstructFromEigen() {
+            const canvas = document.getElementById('eigenCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Reset to redundant state
+            eigenAnimationState = 'redundant';
+            eigenAnimationProgress = 0;
+            drawEigenSpace(ctx, eigenAnimationState, eigenAnimationProgress);
+
+            // Reset parameter values
             const values = [
-                { id: 'colorValue', text: 'RGB(180, 120, 240)' },
-                { id: 'sizeValue', text: '22.7 units' },
-                { id: 'frequencyValue', text: '0.91' },
-                { id: 'spatialValue', text: 'Gaussian(μ=0.3, σ=0.15)' }
+                { id: 'colorValue', text: 'RGB(120, 80, 200)' },
+                { id: 'sizeValue', text: '15.3 units' },
+                { id: 'frequencyValue', text: '0.73' },
+                { id: 'spatialValue', text: 'Gaussian(μ=0.5, σ=0.2)' }
             ];
-            
+
             values.forEach((v, i) => {
-                setTimeout(() => {
-                    const el = document.getElementById(v.id);
-                    if (el) {
-                        el.textContent = v.text;
-                        el.style.color = '#a78bfa';
-                    }
-                }, i * 200);
+                const el = document.getElementById(v.id);
+                if (el) {
+                    el.textContent = v.text;
+                    el.style.color = '#a78bfa';
+                }
             });
         }
 
-        function initLODVisualization() {
+        function initLODCellVisualization() {
             const canvas = document.getElementById('lodCanvas');
             const ctx = canvas.getContext('2d');
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
-            
-            drawLODSystem(ctx, 5);
+
+            drawCellAtLOD(ctx, 5);
         }
 
-        function drawLODSystem(ctx, level) {
+        function drawCellAtLOD(ctx, level) {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+            if (level <= 3) {
+                // Simple cell view
+                drawCell(ctx, 'cell');
+            } else if (level <= 7) {
+                // Organelle detail view
+                drawCell(ctx, 'organelle');
+            } else {
+                // Molecular view
+                drawCell(ctx, 'molecular');
+            }
+        }
+
+        // Removed drawLODSystem - now using drawCellAtLOD instead
+        function drawLODSystem_REMOVED(ctx, level) {
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
             const centerX = ctx.canvas.width / 2;
             const centerY = ctx.canvas.height / 2;
@@ -1424,46 +1557,41 @@
         function updateLOD(value) {
             const level = parseInt(value);
             document.getElementById('lodValue').textContent = level;
-            
+
             const canvas = document.getElementById('lodCanvas');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
-                drawLODSystem(ctx, level);
+                drawCellAtLOD(ctx, level);
             }
-            
-            // Update info based on golden poppy detail level
-            let title, description, params;
-            if (level <= 2) {
-                title = 'Minimal Detail';
-                description = 'Basic flower shape and color. Sufficient for general categorization.';
-                params = 10;
-            } else if (level <= 4) {
-                title = 'Low Detail';
-                description = 'Distinct petals and center visible. Good for species identification.';
-                params = 50;
-            } else if (level <= 6) {
-                title = 'Medium Detail';
-                description = 'Petal gradients, basic texture, leaves. Suitable for botanical classification.';
-                params = 500;
-            } else if (level <= 8) {
-                title = 'High Detail';
-                description = 'Complex petal structure, veins, detailed stem. For growth analysis or health assessment.';
-                params = 5000;
+
+            // Update info based on cell detail level
+            let title, description, params, viewLevel;
+            if (level <= 3) {
+                title = 'Cell Overview';
+                description = 'Basic cell shape and type identification.';
+                params = 100 + (level - 1) * 300;
+                viewLevel = 'Whole Cell';
+            } else if (level <= 7) {
+                title = 'Organelle Detail';
+                description = 'Detailed organelle structure and distribution.';
+                params = 1000 + (level - 4) * 2000;
+                viewLevel = 'Organelle Level';
             } else {
-                title = 'Maximum Detail';
-                description = 'Botanical illustration quality. Individual pollen grains, cell-level features. For scientific study.';
-                params = 50000;
+                title = 'Molecular View';
+                description = 'Molecular interactions, proteins, and DNA structure.';
+                params = 10000 + (level - 8) * 20000;
+                viewLevel = 'Molecular Level';
             }
-            
+
             const titleEl = document.getElementById('lodTitle');
             const descEl = document.getElementById('lodDescription');
             const paramEl = document.getElementById('paramCount');
-            const ratioEl = document.getElementById('compressionRatio');
-            
+            const viewEl = document.getElementById('viewLevel');
+
             if (titleEl) titleEl.textContent = title;
             if (descEl) descEl.textContent = description;
             if (paramEl) paramEl.textContent = params.toLocaleString();
-            if (ratioEl) ratioEl.textContent = `${Math.floor(1000000/params)}:1`;
+            if (viewEl) viewEl.textContent = viewLevel;
         }
 
         function simulateProblem(complexity) {
@@ -1901,7 +2029,7 @@
                     navigationTimeout = setTimeout(() => {
                         showNavigation();
                         navigationTimeout = null;
-                    }, 3000); // 3 second delay
+                    }, 2000); // 3 second delay
                 }
             }, 0);
         }
