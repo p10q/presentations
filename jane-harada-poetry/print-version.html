@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>However Briefly - Jane Harada</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: letter;
+            margin: 1in;
+        }
+
+        @page:first {
+            margin-top: 2in;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'EB Garamond', 'Crimson Text', serif;
+            font-size: 12pt;
+            line-height: 1.8;
+            color: #2C2825;
+        }
+
+        /* Title Page */
+        .title-page {
+            page-break-after: always;
+            text-align: center;
+            padding-top: 30%;
+        }
+
+        .title-page h1 {
+            font-size: 28pt;
+            letter-spacing: 0.08em;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .title-page .author {
+            font-size: 16pt;
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+        }
+
+        .title-page .location {
+            font-size: 11pt;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Table of Contents */
+        .toc-page {
+            page-break-after: always;
+        }
+
+        .toc-page h2 {
+            font-size: 20pt;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 0.08em;
+        }
+
+        .toc-page ul {
+            list-style: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .toc-page li {
+            margin-bottom: 8px;
+            font-size: 11pt;
+            break-inside: avoid;
+        }
+
+        /* Poems */
+        .poem-page {
+            page-break-after: always;
+            page-break-inside: avoid;
+            position: relative;
+        }
+
+        .poem-page h3 {
+            font-size: 16pt;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 0.05em;
+            font-weight: 400;
+        }
+
+        .poem-content {
+            white-space: pre-line;
+            max-width: 80%;
+            margin: 0 auto;
+            font-size: 11pt;
+            line-height: 1.8;
+        }
+
+        .poem-number {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 10pt;
+            color: #999;
+        }
+
+        /* Prevent widows and orphans */
+        p {
+            widows: 3;
+            orphans: 3;
+        }
+
+        /* Hide screen-only elements */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Title Page -->
+    <div class="title-page">
+        <h1>However Briefly</h1>
+        <p class="author">Jane Harada</p>
+        <p class="location">Berkeley, California</p>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc-page">
+        <h2>Contents</h2>
+        <ul>
+            <li>1. Poets can be thrifty souls</li>
+            <li>2. I'm American</li>
+            <li>3. Changing directions</li>
+            <li>4. Flittering</li>
+            <li>5. For my grandmother</li>
+            <li>6. Winter contentment</li>
+            <li>7. Janis Joplin's scream</li>
+            <li>8. Remembering summer as a child</li>
+            <li>9. For Millennia</li>
+            <li>10. Vacation</li>
+            <li>11. A teacher's reward</li>
+            <li>12. Song maker</li>
+            <li>13. Your last wish</li>
+            <li>14. The day we fell in love</li>
+            <li>15. A perfect June day</li>
+            <li>16. Friend and artist</li>
+            <li>17. The day my father died</li>
+            <li>18. A kiss between words</li>
+            <li>19. Women's lib is coming along</li>
+            <li>20. Stars glitter along bare branches</li>
+            <li>21. Oblivious to any chill in the air</li>
+            <li>22. The morning sky</li>
+            <li>23. Van Gogh's drawing</li>
+            <li>24. An ancient amphitheater</li>
+            <li>25. On the way back</li>
+            <li>26. Rain</li>
+            <li>27. Rippling the pond</li>
+            <li>28. Once there was a golden age</li>
+            <li>29. Tulips and irises</li>
+            <li>30. Explaining the sea</li>
+            <li>31. At his opening</li>
+            <li>32. Utter refinement</li>
+            <li>33. Watching the sun</li>
+            <li>34. Youthfulness</li>
+            <li>35. Open fields in the Midwest</li>
+            <li>36. Contrasts in white</li>
+            <li>37. My first love leaves</li>
+            <li>38. Your hand presses</li>
+            <li>39. A boy in spring</li>
+            <li>40. Sending a kiss into the universe</li>
+            <li>41. However briefly</li>
+            <li>42. For my son</li>
+            <li>43. When we turned to go in</li>
+            <li>44. Old friends</li>
+            <li>45. A social dilemma</li>
+            <li>46. A child in autumn</li>
+            <li>47. A parent's plea</li>
+            <li>48. Playing a cello that is not there</li>
+            <li>49. Alone</li>
+            <li>50. Multicultural America</li>
+            <li>51. Poetry was practice</li>
+        </ul>
+    </div>
+
+    <!-- Poems -->
+    <div class="poem-page">
+        <span class="poem-number">1</span>
+        <h3>Poets can be thrifty souls</h3>
+        <div class="poem-content">Poets can be thrifty souls, saving scraps of joy and sorrow
+carefully fitting broken pieces into their kaleidoscopes
+walking along sunlit paths near woods, daring to enter,
+to play in the sweep of towering trees
+study the meticulous hearts of flowers
+learn about the tickling and passion of love
+and yet sometimes they lose everything
+except an extravagant faith in their art</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">2</span>
+        <h3>I'm American</h3>
+        <div class="poem-content">I am deepened by the bravery
+of my immigrant grandparents
+who left comfortable, koto-playing lives
+and endured working as gardeners
+for racists like Fred Astaire
+who knew he could dance away
+without ever paying them
+when they only wanted
+to buy a box of oranges
+all their food for a week
+
+And I admire my pioneer parents
+going eastward from Manzanar
+to Michigan during World War II
+where tomatoes were thrown at them
+while they waited for buses
+and yet still succeeded
+in giving their children
+a sense of humor and a global view
+
+And I appreciate a cultural heritage
+of ancient, meticulous rock gardens
+with carefully raked waves
+yet it's also part of my problem
+for at the shore I like to hear
+the low rumble of the sea
+roll in the warm sand
+jump in the waves
+and feel it's only natural
+
+I especially like
+Chief Seattle's speech
+the majestic Iliad
+Rabelais' humor
+Tolstoy's War and Peace
+Richard Wright's Black Boy
+And Twain's "Leaping Frog"
+
+I like the freedom to do
+what I think is important:
+to work against climate change
+to stamp my foot
+on the marble floor of a mansion
+owned by people with factories
+badly polluting the air
+
+And I stare at an elegant kimono
+woven one silk strand at a time
+hanging next to a large abstract painting
+created with a broom by my best friend
+who immigrated here from Latvia</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">3</span>
+        <h3>Changing directions</h3>
+        <div class="poem-content">With head bent, intent
+I start to climb alone
+focused only on
+getting to the top
+
+Arms start swinging
+fists go up and down
+mechanically
+in front of my face
+as I walk faster and faster
+with exaggerated gusto
+
+And then suddenly
+my elbows bump my sides
+and I start to laugh,
+let go, and giggle
+
+I turn around, spread
+my imaginary wings
+glide back down
+to the valley where
+friends and family
+will laugh with me</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">4</span>
+        <h3>Flittering</h3>
+        <div class="poem-content">Take away the sun—no matter
+For you leave me flittering about the day
+Like an old girl gone mad
+Tilting with my broom
+Gazing at glittering dust
+Almost forgetting to sweep</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">5</span>
+        <h3>For my grandmother</h3>
+        <div class="poem-content">When I hear a lady sing
+while playing a samisen
+joy comes in remembering
+that here in a foreign land
+in words I barely understood
+my grandmother sang to me
+about children everywhere
+joining hands in friendship</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">6</span>
+        <h3>Winter contentment</h3>
+        <div class="poem-content">How lucky we are
+as we grow old
+to sit together
+on a park bench
+listening to birds
+trill in the air
+or icicles clattering
+in sudden refrains
+while we simply
+add arpeggios
+when memory fails</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">7</span>
+        <h3>Janis Joplin's scream</h3>
+        <div class="poem-content">They worked door to door in '64
+registering voters and singing
+"We shall overcome"
+marching against war
+burning draft cards
+joining hands to change America
+
+And then there was bewilderment
+when MLK, RFK, and students
+at Kent State protesting war
+were shot and killed
+
+Yet I wonder why they
+threw up their hands
+and headed out to California
+looking for marijuana
+and Janis Joplin's scream
+while history kept
+giving them chances
+chances rarely given
+to change America for good</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">8</span>
+        <h3>Remembering summer as a child</h3>
+        <div class="poem-content">In summer we cross through
+Fields of grasses arching
+As they move in the breeze
+Searching for wild pear trees
+So far never found
+And when we stop to rest
+Toss pine cones into streams
+And dream of where they go</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">9</span>
+        <h3>For Millennia</h3>
+        <div class="poem-content">The long heavy rain stops
+and the sky is cleansed into
+a crystalline shade of blue
+recalling the pristine world
+native people in America
+preserved for millennia
+
+We've broken every treaty
+made with Native people
+to take more land where
+we keep piling on plastic
+which breaks into tiny pieces
+lasting for millennia</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">10</span>
+        <h3>Vacation</h3>
+        <div class="poem-content">What freedom to walk slowly
+away from old routines
+into the changing shoreline
+with its lacy waves receding
+to an unknown place in the sea
+where we can dream a little
+while gazing at palm branches
+brushing against the sun</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">11</span>
+        <h3>A teacher's reward</h3>
+        <div class="poem-content">During the last class of the year
+I call on students with raised hands
+grow more and more pleased
+with their questioning
+until I excuse myself
+and step into the cool corridor
+to collect my thoughts
+savor a teacher's reward
+and recall with a smile
+the first day of class
+when they switched off the lights
+and threw erasers at me</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">12</span>
+        <h3>Song maker</h3>
+        <div class="poem-content">My love sails away
+in his search
+for another sea, another song
+and though his sailboat
+is moored far away
+whistling wind carries
+a knocking sound
+of halyards and mast
+in a clanging song
+that I sing to him--
+Sailor, song maker
+Fare thee well
+Fare thee well</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">13</span>
+        <h3>Your last wish</h3>
+        <div class="poem-content">At the cemetery
+peacefulness
+restores me once
+ten times it drives me mad
+for our love feels
+permanently fastened
+like fossil on rock
+and your death
+a painful severing
+
+I recall our love as a
+deep synchronization
+in two lives
+that gave us joy
+out of all proportion
+and I will honor
+your last wish
+to keep sunlight
+somewhere before me</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">14</span>
+        <h3>The day we fell in love</h3>
+        <div class="poem-content">If the gods or you or I
+should end this dream,
+let me recall the day
+we fell in love
+how we kept walking
+anywhere
+
+Buildings, other people
+simply disappeared
+and above us
+seagulls were soaring
+their wings going stiff
+as if in awe of
+all our flight</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">15</span>
+        <h3>A perfect June day</h3>
+        <div class="poem-content">Sprawling under a tree
+we laugh so hard
+that I begin to
+roll off your belly
+and must hold you
+even tighter
+while all about us
+poppies flutter
+on this perfect June day
+from which we may
+someday measure
+every other</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">16</span>
+        <h3>Friend and artist</h3>
+        <div class="poem-content">She announces that we're all stupid
+and that she's not drunk
+narrows her eyes to show that she means it
+curses art in front of his friends
+until they leave
+
+He sits back down without being asked
+and intently listens to her
+then shoulders her home through fresh snow
+slips a painting under her arm
+for he knows she's broke again</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">17</span>
+        <h3>The day my father died</h3>
+        <div class="poem-content">After my father died
+I went down to the sea
+where waves suggest
+there are no straight lines
+or answers
+only swirls, undulations
+
+Going in to swim
+I free myself from
+the specificity
+of placing one foot
+in front of the other
+at a funeral
+
+I move in any direction
+on a whim and enjoy
+the translucent colors
+under the water
+
+I recall my father
+struggling for us
+his single-mindedness
+like the last bright leaf
+in an autumn storm
+twisting in the wind
+but not letting go
+
+Leaning back I gaze
+at the horizon
+water meeting sky
+to eternity
+where my father
+his love and strength
+stay with me</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">18</span>
+        <h3>A kiss between words</h3>
+        <div class="poem-content">One evening while in college
+you saunter over to talk
+and we proceed seriously
+to share insights from the day
+
+You tell me how Gogol's character
+walked very carefully
+so that he wouldn't
+wear out his shoes
+
+We laugh into the night
+wishing to kiss between words
+or press palm against palm
+as we finally say good night</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">19</span>
+        <h3>Women's lib is coming along</h3>
+        <div class="poem-content">I'm so truly unbearable that you would be pleased
+As I thrum my fingers on the table
+And give my teeth-clenched, eyes-closed, very quick
+Side-to-side headshake of complete exasperation
+Whenever a man tries to put me down
+
+But there's one little problem I've discovered:
+Fellas scare kinda easy these days
+So while you're out there on the beach
+Having your fun pulling down swimming trunks
+Let me know if you run across a man
+With a little chest sticking out
+Send him along for me to check out</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">20</span>
+        <h3>Stars Glitter Along Bare Branches</h3>
+        <div class="poem-content">Planting a young cherry tree
+outside my window
+in memory of a friend
+I daydream about
+blossoming spring,
+shiny red fruit in summer
+
+At night, however, deer eat
+all the leaves of the tree
+and during the next night
+listening to the wind
+thinking I hear returning deer
+I jump up, sweep the curtain aside
+ready to startle the bandits
+
+Instead, stars glitter along bare branches
+wind swirls the tree into a dance
+of silhouettes over the ground
+letting me see a another world
+with the beauty of deer in the moonlight</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">21</span>
+        <h3>Oblivious to any chill in the air</h3>
+        <div class="poem-content">As children In woods hushed by a winter storm
+we stretch way out and lean on our elbows
+to watch bright cardinals flicking snow
+completely oblivious to any chill in the air</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">22</span>
+        <h3>The morning sky</h3>
+        <div class="poem-content">Early this morning
+light from the east streams out
+and rosy shadows creep
+over enormous, billowing,
+delicate-edged clouds
+set against a pale, blue sky
+and I believe my friend
+who painted beautifully
+on large canvases before
+is now in charge of all the sky
+where memories of our laughter
+our frowning and smiling
+drift with magnificent clouds
+of the morning sky</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">23</span>
+        <h3>Van Gogh's drawing</h3>
+        <div class="poem-content">Thousands of times
+I have looked at the lines
+In Van Gogh's pen and ink drawing
+of hospital grounds at Arles
+finding every single stroke of his pen
+every single line, every single line
+is part of a harmonious whole
+in his stunning definition of beauty</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">24</span>
+        <h3>An ancient amphitheater</h3>
+        <div class="poem-content">I sit in an ancient theater in Arles
+the first one I have ever seen
+and realize how for many years
+I have been searching for this place
+where mankind once came together
+to hear passionate ideas ring out
+
+Columns, stairs, places to sit
+carefully chiseled from massive rock
+by people who clearly knew
+how essential communities are
+
+I daydream about the future
+when every community creates
+places to meet, seeks understanding
+of one another, of ideas,
+until everyone shrugs off war
+as outdated, inhuman, absurd</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">25</span>
+        <h3>On the way back</h3>
+        <div class="poem-content">In a hospital there are cardiac,
+pediatric, obstetric wards and more
+and he's in a psychiatric ward
+trying to get out of depression,
+back to his former self
+
+He follows the ward's routine for weeks
+talks to doctors, nurses, anyone
+as he tries to make connections with people
+stay alert to their nods of assent or dissent
+even though he doesn't want to
+
+Christmas carolers come to sing
+and as they leave he marvels
+at their strength to walk out of the ward
+while confusion, what to do next,
+paralyzes him, keeps him inside of himself
+
+Sometimes he feels like a crab
+on the ocean floor waiting all day
+for warm currents, feelings
+to take him back to a familiar shore
+
+One night in bed he hears staff
+talking in the hallway
+and their words fall on him
+like raindrops from the world he left
+and suddenly he remembers how much
+he once loved springtime
+
+Tears slip down his cheeks
+and he grabs at them, at these precious
+milestones of feeling
+and hoping that he will make it back
+smiles broadly into the darkness</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">26</span>
+        <h3>Rain</h3>
+        <div class="poem-content">I like the thoroughness of rain
+water reaching every root
+the scope of a storm
+our world hushed for an hour
+people left gazing at the landscape
+billowing and bending</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">27</span>
+        <h3>Rippling the Pond</h3>
+        <div class="poem-content">Amid floating leaves
+on firmly arched stems
+the petals of water lilies
+open to the sun
+rippling the pond
+
+And I think of youth
+sound asleep on rugs
+protest guitars on bellies
+awakening among friends
+bumping strings into hums</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">28</span>
+        <h3>There was once a golden age of the working class</h3>
+        <div class="poem-content">We stop lifting
+beam after beam,
+put down hammers, saws--
+reach for lunch pails,
+start strutting across streets
+with the sun on our faces
+walking slowly
+back on our heels
+joking, showing off
+on our way to the park
+pleased with our work
+
+Forty or more years ago
+before the President broke
+strike after strike
+and unions lost ground
+we lived in a golden age
+of the working class --
+hammering, sawing
+building neighborhoods
+walking to homes we owned
+talking about our kids
+how we were making
+a good future for them</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">29</span>
+        <h3>Tulips and irises</h3>
+        <div class="poem-content">Tulip petals
+bend way back from the stem
+lean in six different directions
+almost break off
+
+The young live like this
+in a bright, mad dance
+
+Irises sway
+standing amid sleek leaves
+with blue sails fluttering
+in the breeze
+
+The elderly are elegant
+even if slightly bent</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">30</span>
+        <h3>Explaining the sea</h3>
+        <div class="poem-content">I would like to start over again
+with someone young,
+as easy to love as you
+yet I cannot explain the sea
+nor will I draw you
+out of the pristine world
+of innocence</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">31</span>
+        <h3>At the opening</h3>
+        <div class="poem-content">The artist looks around
+greets everyone
+and circles his work
+
+His magnificent sculpture
+is steady while critics
+move about like flies
+and leave silently
+
+He grips, cracks a wine glass
+In his hand yet still stands
+Smiling and bleeding</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">32</span>
+        <h3>Utter refinement</h3>
+        <div class="poem-content">Musicians take their places
+finish tuning their instruments
+the conductor comes forth
+chandeliers slowly dim
+and a raucous world disappears
+
+The first clear notes arise
+and I clasp my hands in gratitude
+for this utter refinement
+surviving centuries of chaos
+and even the horrors of war</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">33</span>
+        <h3>Watching the sun</h3>
+        <div class="poem-content">When our mother died
+a great cloud curtain
+rushed to the horizon
+and misted light
+in golden lavender
+soft as rose petals
+streamed down
+
+Watching the sun
+its molten red
+pressing against
+the unknown night
+we think of her
+how she will always
+extend our days</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">34</span>
+        <h3>Youthfulness</h3>
+        <div class="poem-content">By day we splash, snap towels at each other
+stay alert to any chance for mischief
+under the wide open skies of America
+
+On a first date we try to slide into each other
+as the car swerves, giggle and later
+try to kiss and grin at the same time</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">35</span>
+        <h3>Open fields in the Midwest</h3>
+        <div class="poem-content">May no one ever
+decide what to do
+with these last open fields
+fleckering
+the rural Midwest
+where dewberries glisten
+after summer rain
+and warm breaths of air
+arise from earth
+like prayer</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">36</span>
+        <h3>Contrasts in white</h3>
+        <div class="poem-content">Poplars shimmered white at dawn
+when our fingers caressed
+like a thousand leaves
+and we slid together
+curve unto curve
+in smooth youth
+
+Now, old and rough-branched,
+moving slowly as if
+on crusted snow, we turn
+to embrace one another
+under white, uncertain skies,
+and sleep in faint sunlight</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">37</span>
+        <h3>My first love leaves me</h3>
+        <div class="poem-content">With the sweet sting
+of strawberries
+pressed on my tongue
+I sit at the table
+staring at the white rose bud
+he gave me last night
+
+I sniff the tilting bloom
+watch it spread one petal
+like an awkward wing
+while out the window
+a faint crescent moon
+crosses a pale blue sky
+and out of spring</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">38</span>
+        <h3>Your hand waits</h3>
+        <div class="poem-content">Your hand presses
+up my body's side
+and waits
+and this waiting,
+this gentle gesture
+like a steady sun
+behind fast moving clouds
+allows us to consider
+who we are
+to one another
+
+Your smile ripples
+into my thoughts
+moves me toward you
+my dress slips off
+as we step out of clothes
+shudder slightly
+in the cool air
+sway inwardly
+and surrender
+to one another</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">39</span>
+        <h3>A boy in spring</h3>
+        <div class="poem-content">Crocuses thrust
+Their bright leaves
+Up from the ground
+Like crossed swords
+Heralding spring
+When a young boy
+Hops on a bicycle
+Looking for hills to coast
+And pedals quickly
+With all his might
+To go anywhere
+And nowhere special</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">40</span>
+        <h3>Sending a kiss into the universe</h3>
+        <div class="poem-content">Sprawling regally
+after our splendor
+unable to contain my joy
+I move from under your shoulder
+tilt my head back
+and send an open kiss
+into the universe
+and dream
+of burning a hole
+through a black map of stars
+to form a new star
+for you, for love of you</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">41</span>
+        <h3>However briefly</h3>
+        <div class="poem-content">Back in my hometown
+I wander over to the high school
+recalling the rippling laughter
+amid clanging locker doors
+and how we once cheered
+on sunlit playing fields
+where we felt immortal
+
+Today my friend Dave
+arrived home from war
+wrapped in a flag
+and at the town green
+surrounded by silent churches
+I think of what we might have said
+before he left for West Point
+
+Tears fall for awhile
+until I imagine how Dave
+would make jokes right now
+to take my pain away
+and so I leave our hometown
+grateful for the innocence allowed us
+however briefly</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">42</span>
+        <h3>For my son</h3>
+        <div class="poem-content">I am floating
+on milk white clouds
+moving at the pace of sleep
+glancing back
+to bid you farewell
+
+Your life's been my
+long dream of love
+so sing a song
+go ring a bell
+all is well</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">43</span>
+        <h3>We turned to go in</h3>
+        <div class="poem-content">I sit tossing out
+crumpled rose petals
+from the bottom of a drawer
+lists I kept of what I laughed about
+while you were on some trip
+
+And I'll always remember
+wandering with you
+on sunlit paths near woods
+the splendor--
+because we turned to go in</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">44</span>
+        <h3>Old friends</h3>
+        <div class="poem-content">I sit and fondly recall
+how through the years
+your voice ranged back
+over our lives
+like rolling waves
+churning shiny pebbles
+to find past incidents
+that worked out all right
+and comforted me
+
+In your absence
+I wish you could see
+these wisps of fog
+drift up and slowly float
+around a majestic tree where
+birds on topmost branches
+sit easily and sway
+flick tails and fly away
+still calling to each other</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">45</span>
+        <h3>A social dilemma</h3>
+        <div class="poem-content">I should have nodded at her,
+I told myself,
+yet I did not feel I could
+Is that really so?
+Yes. No. Maybe so.
+But then again and sometimes even again
+I think, rather convincingly, or so it seems,
+I should have nodded at her nevertheless
+I knew her name, street and house
+and sitting on her couch had sipped tea
+It was too late now
+for I didn't give my eyes
+that soothing glint of recognition,
+but remained where I was</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">46</span>
+        <h3>A child in autumn</h3>
+        <div class="poem-content">We stay busy all day in autumn
+jumping into piles of fallen leaves
+enjoying the crisp, crunching sounds
+stretching way back on the dry ground
+to look at orange maple trees
+against the bright blue sky
+jump up to search for hickory nuts
+rush home with bulging pockets
+to crack and share their sweet meat</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">47</span>
+        <h3>A parent's plea</h3>
+        <div class="poem-content">Suddenly there's snow
+blowing in gusts
+as I gather up my baby
+and drive as fast as I can
+to the hospital
+grateful for bits of mud
+on the icy road
+
+Clutching the wheel
+and stopping my tears
+that would blur vision
+I quietly sing a lullaby
+while my mind searches
+for everything I know
+about first aid
+
+His raspy breathing
+scratches against my heart
+like branches against windows
+his delicate, flame-like life
+dances before me
+and I only know
+that it must not go out
+I silently plead for his life
+in the waiting room
+promise to give up
+anything, everything</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">48</span>
+        <h3>Playing a cello that is not there</h3>
+        <div class="poem-content">After his funeral guests depart
+wind and rain tip flower heads
+and outside she sits down
+to play a cello that is not there
+
+Her skirt spreads, lace begins to show
+until she slips to the ground
+like a delicate fern
+splattering in heavy rain</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">49</span>
+        <h3>Alone</h3>
+        <div class="poem-content">In my walk
+without you
+I try whistling,
+going on
+while sounds of pebbles
+crunching underfoot
+stop when I stop
+and remind me
+that I'm alone
+
+Suddenly,
+wild irises flare
+along the dull path
+again and again
+they flare
+leaving me
+with exclamations
+I want to make
+to you</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">50</span>
+        <h3>Multicultural America</h3>
+        <div class="poem-content">Asian-looking Americans may be
+fifth generation citizens of the U.S.A.
+and still asked, "Where are you from?"
+instead of, "Are you from around here?"
+
+The stack of deposit slips was gone
+so I went to ask a bank officer where to get one
+and told to get in line like everyone else
+I wonder: Racial prejudice? Someone with a bad day?
+
+The clerk at the supermarket greets each person
+through the line except me because he thinks
+I don't speak English --so let's keep working
+to understand a multicultural America</div>
+    </div>
+
+    <div class="poem-page">
+        <span class="poem-number">51</span>
+        <h3>Poetry was practice</h3>
+        <div class="poem-content">Now tossing out lists I kept
+of what I laughed about
+while you were gone
+and crumpled old roses petals
+at the bottom of my drawer
+I recall a sunlit path
+splendor when we turned to go in
+and slowly I sense how
+poetry was practice
+for summoning imagination
+now that you are gone</div>
+    </div>
+
+    <script>
+        // Auto-generate PDF when opened
+        window.onload = function() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
