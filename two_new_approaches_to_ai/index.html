@@ -644,8 +644,13 @@
                     </div>
 
                     <div class="slider-container">
-                        <label>Detail Level: <span id="lodValue">5</span></label>
-                        <input type="range" id="lodSlider" min="1" max="10" value="5" oninput="updateLOD(this.value)">
+                        <label>Detail Level: <span id="lodValue">8</span></label>
+                        <input type="range" id="lodSlider" min="1" max="15" value="8" oninput="updateLOD(this.value)">
+                    </div>
+
+                    <div id="compressionParams" style="margin-top: 15px; padding: 10px; background: rgba(99, 102, 241, 0.1); border-radius: 5px; font-size: 12px; min-height: 60px;">
+                        <strong>Compression Parameters:</strong>
+                        <div id="paramDisplay" style="margin-top: 5px; color: #6b7280;"></div>
                     </div>
                 </div>
             </div>
@@ -1252,28 +1257,1810 @@
             });
         }
 
+        let animationFrameId = null;
+
         function initLODCellVisualization() {
             const canvas = document.getElementById('lodCanvas');
             const ctx = canvas.getContext('2d');
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
 
-            drawCellAtLOD(ctx, 5);
+            drawFlowerAtLOD(ctx, 8);
+            updateCompressionDisplay(8);
         }
 
-        function drawCellAtLOD(ctx, level) {
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-            if (level <= 3) {
-                // Simple cell view
-                drawCell(ctx, 'cell');
-            } else if (level <= 7) {
-                // Organelle detail view
-                drawCell(ctx, 'organelle');
-            } else {
-                // Molecular view
-                drawCell(ctx, 'molecular');
+        function drawFlowerAtLOD(ctx, level) {
+            // Cancel any existing animation
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
             }
+
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            const centerX = ctx.canvas.width / 2;
+            const centerY = ctx.canvas.height / 2;
+
+            // 15 levels from simple flower to molecular dynamics
+            if (level === 1) {
+                // Level 1: Simple flower icon
+                drawSimpleFlowerIcon(ctx, centerX, centerY);
+            } else if (level === 2) {
+                // Level 2: Flower with distinct petals
+                drawFlowerWithPetals(ctx, centerX, centerY);
+            } else if (level === 3) {
+                // Level 3: Flower with surface texture
+                drawFlowerWithTexture(ctx, centerX, centerY);
+            } else if (level === 4) {
+                // Level 4: Flower showing cell boundaries
+                drawFlowerWithCells(ctx, centerX, centerY);
+            } else if (level === 5) {
+                // Level 5: Plant tissue structure
+                drawPlantTissue(ctx, centerX, centerY);
+            } else if (level === 6) {
+                // Level 6: Individual plant cells
+                drawPlantCells(ctx, centerX, centerY);
+            } else if (level === 7) {
+                // Level 7: Detailed cell structure with organelles
+                drawDetailedPlantCell(ctx, centerX, centerY);
+            } else if (level === 8) {
+                // Level 8: Chloroplast detail
+                drawChloroplastDetail(ctx, centerX, centerY);
+            } else if (level === 9) {
+                // Level 9: Cell membrane detail
+                drawMembraneDetail(ctx, centerX, centerY);
+            } else if (level === 10) {
+                // Level 10: Protein complexes
+                drawProteinComplexes(ctx, centerX, centerY);
+            } else if (level === 11) {
+                // Level 11: Molecular machinery
+                drawMolecularMachinery(ctx, centerX, centerY);
+            } else if (level === 12) {
+                // Level 12: Amino acid chains
+                drawAminoAcidChains(ctx, centerX, centerY);
+            } else if (level === 13) {
+                // Level 13: Atomic structure
+                drawAtomicStructure(ctx, centerX, centerY);
+            } else if (level === 14) {
+                // Level 14: Electron orbitals
+                drawElectronOrbitals(ctx, centerX, centerY);
+            } else {
+                // Level 15: Molecular dynamics
+                drawMolecularDynamics(ctx, centerX, centerY);
+            }
+        }
+
+        // Level 1: Simple flower icon
+        function drawSimpleFlowerIcon(ctx, centerX, centerY) {
+            // Basic flower circle
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY - 20, 40, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Simple stem
+            ctx.strokeStyle = '#16a34a';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY + 20);
+            ctx.lineTo(centerX, centerY + 100);
+            ctx.stroke();
+        }
+
+        // Level 2: Flower with distinct petals
+        function drawFlowerWithPetals(ctx, centerX, centerY) {
+            // Draw 6 petals
+            for (let i = 0; i < 6; i++) {
+                const angle = (i / 6) * Math.PI * 2;
+                const petalX = centerX + Math.cos(angle) * 25;
+                const petalY = centerY - 20 + Math.sin(angle) * 25;
+
+                ctx.fillStyle = '#fbbf24';
+                ctx.beginPath();
+                ctx.ellipse(petalX, petalY, 25, 15, angle, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Center
+            ctx.fillStyle = '#f59e0b';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY - 20, 15, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Stem with leaves
+            ctx.strokeStyle = '#16a34a';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY + 10);
+            ctx.lineTo(centerX, centerY + 100);
+            ctx.stroke();
+
+            // Simple leaves
+            ctx.fillStyle = '#16a34a';
+            ctx.beginPath();
+            ctx.ellipse(centerX - 15, centerY + 50, 10, 5, -0.3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(centerX + 15, centerY + 70, 10, 5, 0.3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Level 3: Flower with surface texture
+        function drawFlowerWithTexture(ctx, centerX, centerY) {
+            // Textured petals
+            for (let i = 0; i < 6; i++) {
+                const angle = (i / 6) * Math.PI * 2;
+                const petalX = centerX + Math.cos(angle) * 30;
+                const petalY = centerY - 20 + Math.sin(angle) * 30;
+
+                // Petal gradient
+                const gradient = ctx.createRadialGradient(petalX, petalY, 0, petalX, petalY, 25);
+                gradient.addColorStop(0, '#fde047');
+                gradient.addColorStop(0.7, '#fbbf24');
+                gradient.addColorStop(1, '#f59e0b');
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.ellipse(petalX, petalY, 28, 18, angle, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Petal veins
+                ctx.strokeStyle = 'rgba(245, 158, 11, 0.5)';
+                ctx.lineWidth = 0.5;
+                for (let v = 0; v < 3; v++) {
+                    ctx.beginPath();
+                    ctx.moveTo(centerX, centerY - 20);
+                    const vAngle = angle + (v - 1) * 0.2;
+                    ctx.lineTo(
+                        centerX + Math.cos(vAngle) * 45,
+                        centerY - 20 + Math.sin(vAngle) * 45
+                    );
+                    ctx.stroke();
+                }
+            }
+
+            // Textured center
+            for (let r = 0; r < 5; r++) {
+                ctx.fillStyle = `rgba(245, 158, 11, ${0.8 - r * 0.15})`;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY - 20, 15 - r * 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Detailed stem
+            const stemGradient = ctx.createLinearGradient(centerX - 3, 0, centerX + 3, 0);
+            stemGradient.addColorStop(0, '#059669');
+            stemGradient.addColorStop(0.5, '#16a34a');
+            stemGradient.addColorStop(1, '#059669');
+            ctx.strokeStyle = stemGradient;
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY + 10);
+            ctx.lineTo(centerX, centerY + 100);
+            ctx.stroke();
+        }
+
+        // Level 4: Flower showing cell boundaries
+        function drawFlowerWithCells(ctx, centerX, centerY) {
+            // Draw petal with visible cells
+            for (let i = 0; i < 6; i++) {
+                const angle = (i / 6) * Math.PI * 2;
+                const petalX = centerX + Math.cos(angle) * 30;
+                const petalY = centerY - 20 + Math.sin(angle) * 30;
+
+                // Draw cells in petal
+                for (let cx = -25; cx < 25; cx += 8) {
+                    for (let cy = -15; cy < 15; cy += 8) {
+                        const cellX = petalX + cx;
+                        const cellY = petalY + cy;
+
+                        // Check if inside petal
+                        const dx = (cellX - petalX) / 28;
+                        const dy = (cellY - petalY) / 18;
+                        if (dx * dx + dy * dy <= 1) {
+                            ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
+                            ctx.fillStyle = 'rgba(251, 191, 36, 0.8)';
+                            ctx.lineWidth = 0.5;
+
+                            // Hexagonal cells
+                            ctx.beginPath();
+                            for (let v = 0; v < 6; v++) {
+                                const vAngle = (v / 6) * Math.PI * 2;
+                                const vx = cellX + Math.cos(vAngle) * 4;
+                                const vy = cellY + Math.sin(vAngle) * 4;
+                                if (v === 0) ctx.moveTo(vx, vy);
+                                else ctx.lineTo(vx, vy);
+                            }
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+        }
+
+        // Level 5: Plant tissue structure
+        function drawPlantTissue(ctx, centerX, centerY) {
+            // Cross-section of petal tissue
+            const tissueWidth = 200;
+            const tissueHeight = 150;
+            const startX = centerX - tissueWidth / 2;
+            const startY = centerY - tissueHeight / 2;
+
+            // Epidermis (outer layer)
+            ctx.fillStyle = 'rgba(254, 240, 138, 0.9)';
+            ctx.fillRect(startX, startY, tissueWidth, 20);
+
+            // Draw epidermal cells
+            for (let x = 0; x < tissueWidth; x += 15) {
+                ctx.strokeStyle = 'rgba(245, 158, 11, 0.8)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.rect(startX + x, startY, 15, 20);
+                ctx.stroke();
+            }
+
+            // Palisade mesophyll
+            ctx.fillStyle = 'rgba(251, 191, 36, 0.8)';
+            for (let x = 0; x < tissueWidth; x += 12) {
+                for (let y = 0; y < 40; y += 35) {
+                    ctx.beginPath();
+                    ctx.rect(startX + x + 1, startY + 25 + y, 10, 30);
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+
+                    // Chloroplasts
+                    for (let c = 0; c < 3; c++) {
+                        ctx.fillStyle = 'rgba(34, 197, 94, 0.7)';
+                        ctx.beginPath();
+                        ctx.ellipse(
+                            startX + x + 6,
+                            startY + 30 + c * 8,
+                            3, 2, 0, 0, Math.PI * 2
+                        );
+                        ctx.fill();
+                    }
+                }
+            }
+
+            // Spongy mesophyll
+            for (let i = 0; i < 30; i++) {
+                const x = startX + Math.random() * tissueWidth;
+                const y = startY + 70 + Math.random() * 50;
+                const size = 8 + Math.random() * 8;
+
+                ctx.fillStyle = 'rgba(251, 191, 36, 0.6)';
+                ctx.strokeStyle = 'rgba(245, 158, 11, 0.5)';
+                ctx.lineWidth = 0.5;
+
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // Air spaces
+                if (Math.random() > 0.5) {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.beginPath();
+                    ctx.arc(x + size/2, y, size/3, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Lower epidermis
+            ctx.fillStyle = 'rgba(254, 240, 138, 0.9)';
+            ctx.fillRect(startX, startY + 130, tissueWidth, 20);
+
+            // Stomata
+            for (let s = 0; s < 3; s++) {
+                const stX = startX + 30 + s * 60;
+                const stY = startY + 140;
+
+                // Guard cells
+                ctx.fillStyle = 'rgba(34, 197, 94, 0.8)';
+                ctx.beginPath();
+                ctx.ellipse(stX - 4, stY, 4, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.ellipse(stX + 4, stY, 4, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Pore
+                ctx.strokeStyle = '#1f2937';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(stX, stY - 4);
+                ctx.lineTo(stX, stY + 4);
+                ctx.stroke();
+            }
+        }
+
+        // Level 6: Individual plant cells
+        function drawPlantCells(ctx, centerX, centerY) {
+            // Draw a few plant cells in detail
+            const cells = [
+                { x: centerX - 50, y: centerY, size: 40 },
+                { x: centerX + 50, y: centerY, size: 40 },
+                { x: centerX, y: centerY - 50, size: 35 },
+                { x: centerX, y: centerY + 50, size: 35 }
+            ];
+
+            cells.forEach(cell => {
+                // Cell wall
+                ctx.strokeStyle = '#8b5cf6';
+                ctx.lineWidth = 3;
+                ctx.fillStyle = 'rgba(254, 243, 199, 0.3)';
+                ctx.beginPath();
+                ctx.rect(cell.x - cell.size, cell.y - cell.size, cell.size * 2, cell.size * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // Cell membrane
+                ctx.strokeStyle = 'rgba(139, 92, 246, 0.5)';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([2, 2]);
+                ctx.beginPath();
+                ctx.rect(
+                    cell.x - cell.size + 3,
+                    cell.y - cell.size + 3,
+                    cell.size * 2 - 6,
+                    cell.size * 2 - 6
+                );
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Cytoplasm
+                ctx.fillStyle = 'rgba(187, 247, 208, 0.2)';
+                ctx.fillRect(
+                    cell.x - cell.size + 5,
+                    cell.y - cell.size + 5,
+                    cell.size * 2 - 10,
+                    cell.size * 2 - 10
+                );
+
+                // Central vacuole
+                ctx.fillStyle = 'rgba(147, 197, 253, 0.3)';
+                ctx.beginPath();
+                ctx.ellipse(cell.x, cell.y, cell.size * 0.6, cell.size * 0.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Nucleus
+                ctx.fillStyle = 'rgba(139, 92, 246, 0.6)';
+                ctx.beginPath();
+                ctx.arc(cell.x - cell.size * 0.4, cell.y - cell.size * 0.3, cell.size * 0.15, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Chloroplasts
+                for (let c = 0; c < 5; c++) {
+                    const angle = (c / 5) * Math.PI * 2;
+                    const cx = cell.x + Math.cos(angle) * cell.size * 0.5;
+                    const cy = cell.y + Math.sin(angle) * cell.size * 0.5;
+
+                    ctx.fillStyle = 'rgba(34, 197, 94, 0.8)';
+                    ctx.beginPath();
+                    ctx.ellipse(cx, cy, 5, 3, angle, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+        }
+
+        // Level 7: Detailed cell structure with organelles
+        function drawDetailedPlantCell(ctx, centerX, centerY) {
+            const cellSize = 100;
+
+            // Cell wall
+            ctx.strokeStyle = '#7c3aed';
+            ctx.lineWidth = 4;
+            ctx.fillStyle = 'rgba(254, 249, 195, 0.2)';
+            ctx.beginPath();
+            ctx.rect(centerX - cellSize, centerY - cellSize, cellSize * 2, cellSize * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // Cell membrane (phospholipid bilayer hint)
+            ctx.strokeStyle = '#8b5cf6';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([3, 3]);
+            ctx.beginPath();
+            ctx.rect(centerX - cellSize + 5, centerY - cellSize + 5, cellSize * 2 - 10, cellSize * 2 - 10);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Cytoplasm
+            const cytoGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, cellSize);
+            cytoGradient.addColorStop(0, 'rgba(187, 247, 208, 0.1)');
+            cytoGradient.addColorStop(1, 'rgba(187, 247, 208, 0.3)');
+            ctx.fillStyle = cytoGradient;
+            ctx.fillRect(centerX - cellSize + 8, centerY - cellSize + 8, cellSize * 2 - 16, cellSize * 2 - 16);
+
+            // Central vacuole with tonoplast
+            ctx.fillStyle = 'rgba(147, 197, 253, 0.4)';
+            ctx.strokeStyle = 'rgba(59, 130, 246, 0.6)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.ellipse(centerX + 20, centerY + 10, 50, 40, 0.2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // Nucleus with nucleolus and nuclear envelope
+            const nucleusX = centerX - 30;
+            const nucleusY = centerY - 20;
+
+            // Nuclear envelope (double membrane)
+            ctx.strokeStyle = '#6366f1';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(nucleusX, nucleusY, 25, 0, Math.PI * 2);
+            ctx.stroke();
+
+            ctx.fillStyle = 'rgba(99, 102, 241, 0.3)';
+            ctx.beginPath();
+            ctx.arc(nucleusX, nucleusY, 23, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Nucleolus
+            ctx.fillStyle = 'rgba(79, 70, 229, 0.8)';
+            ctx.beginPath();
+            ctx.arc(nucleusX + 5, nucleusY - 5, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Chromatin
+            ctx.strokeStyle = 'rgba(79, 70, 229, 0.4)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < 5; i++) {
+                ctx.beginPath();
+                ctx.moveTo(nucleusX + Math.random() * 20 - 10, nucleusY + Math.random() * 20 - 10);
+                ctx.quadraticCurveTo(
+                    nucleusX + Math.random() * 20 - 10,
+                    nucleusY + Math.random() * 20 - 10,
+                    nucleusX + Math.random() * 20 - 10,
+                    nucleusY + Math.random() * 20 - 10
+                );
+                ctx.stroke();
+            }
+
+            // Chloroplasts with thylakoids
+            const chloroplasts = [
+                { x: centerX - 50, y: centerY + 40, angle: 0.3 },
+                { x: centerX + 40, y: centerY - 50, angle: -0.5 },
+                { x: centerX - 20, y: centerY + 60, angle: 0.8 },
+                { x: centerX + 60, y: centerY + 20, angle: -0.2 }
+            ];
+
+            chloroplasts.forEach(chloro => {
+                ctx.save();
+                ctx.translate(chloro.x, chloro.y);
+                ctx.rotate(chloro.angle);
+
+                // Outer membrane
+                ctx.fillStyle = 'rgba(34, 197, 94, 0.6)';
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 12, 8, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Thylakoid stacks (grana)
+                ctx.fillStyle = 'rgba(22, 163, 74, 0.9)';
+                for (let t = -8; t < 8; t += 3) {
+                    ctx.beginPath();
+                    ctx.rect(t, -4, 2, 8);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            });
+
+            // Mitochondria
+            const mitochondria = [
+                { x: centerX + 30, y: centerY - 30 },
+                { x: centerX - 60, y: centerY - 10 }
+            ];
+
+            mitochondria.forEach(mito => {
+                ctx.fillStyle = 'rgba(239, 68, 68, 0.5)';
+                ctx.beginPath();
+                ctx.ellipse(mito.x, mito.y, 15, 8, 0.4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Cristae
+                ctx.strokeStyle = 'rgba(185, 28, 28, 0.7)';
+                ctx.lineWidth = 1;
+                for (let c = -10; c < 10; c += 4) {
+                    ctx.beginPath();
+                    ctx.moveTo(mito.x + c, mito.y - 5);
+                    ctx.lineTo(mito.x + c + 2, mito.y + 5);
+                    ctx.stroke();
+                }
+            });
+
+            // Endoplasmic reticulum
+            ctx.strokeStyle = 'rgba(251, 146, 60, 0.6)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX - 70, centerY + 20);
+            ctx.quadraticCurveTo(centerX - 40, centerY + 30, centerX - 10, centerY + 25);
+            ctx.quadraticCurveTo(centerX + 20, centerY + 20, centerX + 50, centerY + 35);
+            ctx.stroke();
+
+            // Ribosomes on ER
+            for (let r = 0; r < 8; r++) {
+                const t = r / 8;
+                const rx = centerX - 70 + t * 120;
+                const ry = centerY + 25 + Math.sin(t * Math.PI * 2) * 5;
+
+                ctx.fillStyle = 'rgba(251, 146, 60, 0.9)';
+                ctx.beginPath();
+                ctx.arc(rx, ry, 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Golgi apparatus
+            ctx.strokeStyle = 'rgba(168, 85, 247, 0.7)';
+            ctx.lineWidth = 2;
+            for (let g = 0; g < 4; g++) {
+                ctx.beginPath();
+                ctx.moveTo(centerX + 10, centerY - 60 + g * 5);
+                ctx.quadraticCurveTo(
+                    centerX + 25, centerY - 58 + g * 5,
+                    centerX + 40, centerY - 60 + g * 5
+                );
+                ctx.stroke();
+            }
+
+            // Peroxisomes
+            ctx.fillStyle = 'rgba(234, 179, 8, 0.6)';
+            ctx.beginPath();
+            ctx.arc(centerX - 40, centerY - 50, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(centerX + 70, centerY, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Level 8: Chloroplast detail
+        function drawChloroplastDetail(ctx, centerX, centerY) {
+            // Large chloroplast cross-section
+            const width = 180;
+            const height = 120;
+
+            // Outer membrane
+            ctx.strokeStyle = '#16a34a';
+            ctx.lineWidth = 3;
+            ctx.fillStyle = 'rgba(187, 247, 208, 0.2)';
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY, width/2, height/2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // Inner membrane
+            ctx.strokeStyle = '#15803d';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([4, 2]);
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY, width/2 - 5, height/2 - 5, 0, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Stroma
+            ctx.fillStyle = 'rgba(220, 252, 231, 0.5)';
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY, width/2 - 8, height/2 - 8, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Thylakoid membrane system
+            // Grana stacks
+            const granaPositions = [
+                { x: centerX - 40, y: centerY - 20 },
+                { x: centerX + 30, y: centerY - 15 },
+                { x: centerX - 20, y: centerY + 20 },
+                { x: centerX + 50, y: centerY + 25 },
+                { x: centerX, y: centerY }
+            ];
+
+            granaPositions.forEach(pos => {
+                // Stack of thylakoids
+                for (let t = 0; t < 6; t++) {
+                    const yOffset = t * 4;
+
+                    // Thylakoid disc
+                    ctx.fillStyle = `rgba(5, 150, 105, ${0.9 - t * 0.1})`;
+                    ctx.beginPath();
+                    ctx.ellipse(pos.x, pos.y + yOffset, 20, 3, 0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Lumen space
+                    ctx.strokeStyle = 'rgba(6, 95, 70, 0.8)';
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+
+                // Photosystem II complexes
+                ctx.fillStyle = '#dc2626';
+                for (let p = 0; p < 3; p++) {
+                    ctx.beginPath();
+                    ctx.arc(pos.x - 10 + p * 10, pos.y, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                // Photosystem I complexes
+                ctx.fillStyle = '#2563eb';
+                for (let p = 0; p < 3; p++) {
+                    ctx.beginPath();
+                    ctx.arc(pos.x - 10 + p * 10, pos.y + 8, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+
+            // Stroma lamellae (connecting grana)
+            ctx.strokeStyle = 'rgba(5, 150, 105, 0.5)';
+            ctx.lineWidth = 2;
+
+            // Connect grana with stroma lamellae
+            ctx.beginPath();
+            ctx.moveTo(granaPositions[0].x + 20, granaPositions[0].y);
+            ctx.quadraticCurveTo(
+                centerX, centerY - 10,
+                granaPositions[1].x - 20, granaPositions[1].y
+            );
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(granaPositions[2].x + 20, granaPositions[2].y);
+            ctx.quadraticCurveTo(
+                centerX + 20, centerY + 15,
+                granaPositions[3].x - 20, granaPositions[3].y
+            );
+            ctx.stroke();
+
+            // Starch grains
+            ctx.fillStyle = 'rgba(254, 240, 138, 0.7)';
+            ctx.beginPath();
+            ctx.ellipse(centerX - 60, centerY + 30, 12, 8, 0.3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(centerX + 60, centerY - 35, 10, 7, -0.4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Plastoglobuli (lipid droplets)
+            ctx.fillStyle = 'rgba(251, 191, 36, 0.8)';
+            for (let i = 0; i < 8; i++) {
+                const px = centerX - 70 + Math.random() * 140;
+                const py = centerY - 50 + Math.random() * 100;
+                ctx.beginPath();
+                ctx.arc(px, py, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // DNA regions
+            ctx.strokeStyle = 'rgba(147, 51, 234, 0.4)';
+            ctx.lineWidth = 1;
+            for (let d = 0; d < 3; d++) {
+                ctx.beginPath();
+                const dx = centerX - 50 + d * 50;
+                const dy = centerY - 40 + d * 30;
+                ctx.arc(dx, dy, 8, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // ATP synthase complexes on thylakoid
+            ctx.fillStyle = '#f59e0b';
+            granaPositions.forEach(pos => {
+                for (let a = 0; a < 2; a++) {
+                    ctx.beginPath();
+                    ctx.arc(pos.x - 5 + a * 10, pos.y + 15, 3, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Stalk
+                    ctx.strokeStyle = '#f59e0b';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(pos.x - 5 + a * 10, pos.y + 12);
+                    ctx.lineTo(pos.x - 5 + a * 10, pos.y + 18);
+                    ctx.stroke();
+                }
+            });
+        }
+
+        // Level 9: Cell membrane detail
+        function drawMembraneDetail(ctx, centerX, centerY) {
+            // Phospholipid bilayer close-up
+            const membraneWidth = 250;
+            const membraneHeight = 100;
+            const startX = centerX - membraneWidth / 2;
+            const startY = centerY - membraneHeight / 2;
+
+            // Draw phospholipid bilayer
+            for (let row = 0; row < 2; row++) {
+                for (let i = 0; i < 25; i++) {
+                    const x = startX + i * 10 + (row % 2) * 5;
+                    const y = startY + membraneHeight / 2 + (row === 0 ? -15 : 15);
+
+                    // Phosphate head
+                    ctx.fillStyle = row === 0 ? '#3b82f6' : '#8b5cf6';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 4, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Fatty acid tails
+                    ctx.strokeStyle = '#fbbf24';
+                    ctx.lineWidth = 2;
+
+                    // Tail 1
+                    ctx.beginPath();
+                    ctx.moveTo(x - 2, y + (row === 0 ? 4 : -4));
+                    if (row === 0) {
+                        ctx.lineTo(x - 2, y + 20);
+                        ctx.lineTo(x - 4, y + 25);
+                    } else {
+                        ctx.lineTo(x - 2, y - 20);
+                        ctx.lineTo(x - 4, y - 25);
+                    }
+                    ctx.stroke();
+
+                    // Tail 2
+                    ctx.beginPath();
+                    ctx.moveTo(x + 2, y + (row === 0 ? 4 : -4));
+                    if (row === 0) {
+                        ctx.lineTo(x + 2, y + 20);
+                        ctx.lineTo(x + 4, y + 25);
+                    } else {
+                        ctx.lineTo(x + 2, y - 20);
+                        ctx.lineTo(x + 4, y - 25);
+                    }
+                    ctx.stroke();
+                }
+            }
+
+            // Membrane proteins
+            // Ion channel
+            ctx.fillStyle = 'rgba(239, 68, 68, 0.8)';
+            ctx.beginPath();
+            ctx.rect(centerX - 60, startY + 20, 15, membraneHeight - 40);
+            ctx.fill();
+
+            // Channel pore
+            ctx.fillStyle = 'rgba(147, 197, 253, 0.6)';
+            ctx.beginPath();
+            ctx.rect(centerX - 55, startY + 30, 5, membraneHeight - 60);
+            ctx.fill();
+
+            // Receptor protein
+            const receptorX = centerX + 20;
+            ctx.fillStyle = 'rgba(34, 197, 94, 0.8)';
+            ctx.beginPath();
+            ctx.ellipse(receptorX, startY + membraneHeight/2, 12, 30, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Ligand binding site
+            ctx.fillStyle = '#dc2626';
+            ctx.beginPath();
+            ctx.arc(receptorX, startY + 15, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Transport protein
+            ctx.fillStyle = 'rgba(251, 146, 60, 0.8)';
+            ctx.beginPath();
+            ctx.ellipse(centerX + 70, startY + membraneHeight/2, 10, 25, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Cholesterol molecules
+            for (let c = 0; c < 6; c++) {
+                const cholX = startX + 30 + c * 35;
+                const cholY = startY + membraneHeight/2 + (c % 2 === 0 ? 8 : -8);
+
+                ctx.fillStyle = 'rgba(234, 179, 8, 0.9)';
+                ctx.beginPath();
+                ctx.ellipse(cholX, cholY, 3, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Glycoproteins/glycolipids
+            for (let g = 0; g < 4; g++) {
+                const glycoX = startX + 40 + g * 50;
+                const glycoY = startY + 10;
+
+                // Sugar chains
+                ctx.strokeStyle = '#ec4899';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(glycoX, glycoY + 25);
+                ctx.lineTo(glycoX - 5, glycoY + 15);
+                ctx.lineTo(glycoX - 3, glycoY + 5);
+                ctx.stroke();
+
+                // Sugar units
+                ctx.fillStyle = '#ec4899';
+                ctx.beginPath();
+                ctx.arc(glycoX - 3, glycoY + 5, 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(glycoX - 5, glycoY + 15, 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Cytoskeleton attachments
+            ctx.strokeStyle = 'rgba(156, 163, 175, 0.7)';
+            ctx.lineWidth = 1.5;
+            for (let i = 0; i < 5; i++) {
+                const cytoX = startX + 20 + i * 45;
+                ctx.beginPath();
+                ctx.moveTo(cytoX, startY + membraneHeight - 10);
+                ctx.lineTo(cytoX - 10, startY + membraneHeight + 20);
+                ctx.lineTo(cytoX + 10, startY + membraneHeight + 25);
+                ctx.stroke();
+            }
+        }
+
+        // Level 10: Protein complexes
+        function drawProteinComplexes(ctx, centerX, centerY) {
+            // Photosystem II complex
+            const ps2X = centerX - 80;
+            const ps2Y = centerY;
+
+            // Core complex
+            ctx.fillStyle = 'rgba(220, 38, 38, 0.7)';
+            ctx.beginPath();
+            ctx.ellipse(ps2X, ps2Y, 30, 25, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // D1 and D2 proteins
+            ctx.fillStyle = 'rgba(185, 28, 28, 0.9)';
+            ctx.beginPath();
+            ctx.rect(ps2X - 15, ps2Y - 20, 10, 40);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.rect(ps2X + 5, ps2Y - 20, 10, 40);
+            ctx.fill();
+
+            // Chlorophyll special pair (P680)
+            ctx.fillStyle = '#10b981';
+            ctx.beginPath();
+            ctx.arc(ps2X - 5, ps2Y, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(ps2X + 5, ps2Y, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Antenna complex
+            for (let a = 0; a < 8; a++) {
+                const angle = (a / 8) * Math.PI * 2;
+                const ax = ps2X + Math.cos(angle) * 40;
+                const ay = ps2Y + Math.sin(angle) * 35;
+
+                ctx.fillStyle = 'rgba(34, 197, 94, 0.6)';
+                ctx.beginPath();
+                ctx.arc(ax, ay, 6, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // ATP synthase complex
+            const atpX = centerX + 80;
+            const atpY = centerY;
+
+            // F0 portion (membrane embedded)
+            ctx.fillStyle = 'rgba(251, 146, 60, 0.8)';
+            ctx.beginPath();
+            ctx.ellipse(atpX, atpY + 20, 20, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Stalk
+            ctx.strokeStyle = '#f97316';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(atpX, atpY + 10);
+            ctx.lineTo(atpX, atpY - 10);
+            ctx.stroke();
+
+            // F1 portion (catalytic head)
+            ctx.fillStyle = 'rgba(251, 146, 60, 0.9)';
+
+            // α and β subunits
+            for (let i = 0; i < 6; i++) {
+                const angle = (i / 6) * Math.PI * 2;
+                const subX = atpX + Math.cos(angle) * 15;
+                const subY = atpY - 20 + Math.sin(angle) * 15;
+
+                ctx.fillStyle = i % 2 === 0 ? 'rgba(251, 146, 60, 0.9)' : 'rgba(254, 215, 170, 0.9)';
+                ctx.beginPath();
+                ctx.arc(subX, subY, 8, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // γ subunit (central stalk)
+            ctx.fillStyle = '#ea580c';
+            ctx.beginPath();
+            ctx.arc(atpX, atpY - 20, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Rubisco complex
+            const rubiscoX = centerX;
+            const rubiscoY = centerY - 60;
+
+            // Large subunits (8)
+            for (let i = 0; i < 8; i++) {
+                const angle = (i / 8) * Math.PI * 2;
+                const lx = rubiscoX + Math.cos(angle) * 20;
+                const ly = rubiscoY + Math.sin(angle) * 20;
+
+                ctx.fillStyle = 'rgba(99, 102, 241, 0.8)';
+                ctx.beginPath();
+                ctx.arc(lx, ly, 7, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Small subunits (8)
+            for (let i = 0; i < 8; i++) {
+                const angle = (i / 8) * Math.PI * 2 + Math.PI / 8;
+                const sx = rubiscoX + Math.cos(angle) * 12;
+                const sy = rubiscoY + Math.sin(angle) * 12;
+
+                ctx.fillStyle = 'rgba(165, 180, 252, 0.9)';
+                ctx.beginPath();
+                ctx.arc(sx, sy, 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Active sites
+            ctx.fillStyle = '#fbbf24';
+            for (let i = 0; i < 4; i++) {
+                const angle = (i / 4) * Math.PI * 2;
+                const ax = rubiscoX + Math.cos(angle) * 8;
+                const ay = rubiscoY + Math.sin(angle) * 8;
+                ctx.beginPath();
+                ctx.arc(ax, ay, 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Level 11: Molecular machinery
+        function drawMolecularMachinery(ctx, centerX, centerY) {
+            // DNA polymerase at work
+            const polyX = centerX - 50;
+            const polyY = centerY;
+
+            // DNA template strand
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(polyX - 80, polyY);
+            for (let i = 0; i < 160; i++) {
+                const x = polyX - 80 + i;
+                const y = polyY + Math.sin(i * 0.1) * 10;
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Complementary strand
+            ctx.strokeStyle = '#8b5cf6';
+            ctx.beginPath();
+            ctx.moveTo(polyX - 80, polyY);
+            for (let i = 0; i < 80; i++) {
+                const x = polyX - 80 + i;
+                const y = polyY - Math.sin(i * 0.1) * 10;
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // DNA polymerase enzyme
+            const gradient = ctx.createRadialGradient(polyX, polyY, 0, polyX, polyY, 25);
+            gradient.addColorStop(0, 'rgba(239, 68, 68, 0.9)');
+            gradient.addColorStop(0.5, 'rgba(239, 68, 68, 0.7)');
+            gradient.addColorStop(1, 'rgba(239, 68, 68, 0.4)');
+
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.ellipse(polyX, polyY, 25, 20, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Active site
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.arc(polyX, polyY, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Incoming nucleotides
+            for (let n = 0; n < 4; n++) {
+                const nx = polyX + 30 + n * 15;
+                const ny = polyY - 30 + n * 5;
+
+                const colors = ['#10b981', '#f59e0b', '#ef4444', '#3b82f6'];
+                ctx.fillStyle = colors[n];
+                ctx.beginPath();
+                ctx.arc(nx, ny, 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Triphosphate groups
+                for (let p = 0; p < 3; p++) {
+                    ctx.fillStyle = '#fde047';
+                    ctx.beginPath();
+                    ctx.arc(nx + 5 + p * 3, ny, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Ribosome translating mRNA
+            const riboX = centerX + 60;
+            const riboY = centerY - 30;
+
+            // Large subunit
+            ctx.fillStyle = 'rgba(168, 85, 247, 0.8)';
+            ctx.beginPath();
+            ctx.ellipse(riboX, riboY - 10, 30, 20, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Small subunit
+            ctx.fillStyle = 'rgba(196, 181, 253, 0.8)';
+            ctx.beginPath();
+            ctx.ellipse(riboX, riboY + 10, 25, 15, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // mRNA strand
+            ctx.strokeStyle = '#ec4899';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(riboX - 60, riboY);
+            ctx.quadraticCurveTo(riboX, riboY + 5, riboX + 60, riboY);
+            ctx.stroke();
+
+            // tRNA molecules
+            const tRNAs = [
+                { x: riboX - 10, color: '#10b981' },
+                { x: riboX, color: '#f59e0b' },
+                { x: riboX + 10, color: '#3b82f6' }
+            ];
+
+            tRNAs.forEach(tRNA => {
+                // tRNA structure
+                ctx.strokeStyle = tRNA.color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(tRNA.x, riboY - 5);
+                ctx.lineTo(tRNA.x - 5, riboY - 15);
+                ctx.lineTo(tRNA.x, riboY - 20);
+                ctx.lineTo(tRNA.x + 5, riboY - 15);
+                ctx.lineTo(tRNA.x, riboY - 5);
+                ctx.stroke();
+
+                // Amino acid
+                ctx.fillStyle = tRNA.color;
+                ctx.beginPath();
+                ctx.arc(tRNA.x, riboY - 25, 3, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Growing protein chain
+            ctx.strokeStyle = '#6366f1';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(riboX - 30, riboY);
+            for (let i = 0; i < 10; i++) {
+                const px = riboX - 30 - i * 5;
+                const py = riboY + Math.sin(i * 0.8) * 8;
+                ctx.lineTo(px, py);
+
+                // Amino acids in chain
+                if (i % 2 === 0) {
+                    ctx.fillStyle = '#6366f1';
+                    ctx.beginPath();
+                    ctx.arc(px, py, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            ctx.stroke();
+        }
+
+        // Level 12: Amino acid chains
+        function drawAminoAcidChains(ctx, centerX, centerY) {
+            // Detailed protein structure
+
+            // Primary structure - amino acid sequence
+            const startX = centerX - 100;
+            const startY = centerY - 50;
+
+            const aminoAcids = [
+                { name: 'Met', color: '#10b981' },
+                { name: 'Ala', color: '#f59e0b' },
+                { name: 'Gly', color: '#ef4444' },
+                { name: 'Ser', color: '#3b82f6' },
+                { name: 'Thr', color: '#8b5cf6' },
+                { name: 'Val', color: '#ec4899' },
+                { name: 'Leu', color: '#10b981' },
+                { name: 'Ile', color: '#f59e0b' }
+            ];
+
+            // Draw peptide backbone
+            ctx.strokeStyle = '#6b7280';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+
+            aminoAcids.forEach((aa, i) => {
+                const x = startX + i * 25;
+                const y = startY;
+
+                // Peptide bond
+                if (i > 0) {
+                    ctx.lineTo(x, y);
+                }
+
+                // Alpha carbon
+                ctx.fillStyle = '#1f2937';
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Side chain (R group)
+                ctx.strokeStyle = aa.color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x, y - 15);
+                ctx.stroke();
+
+                ctx.fillStyle = aa.color;
+                ctx.beginPath();
+                ctx.arc(x, y - 15, 5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Amino group (N-terminus)
+                if (i === 0) {
+                    ctx.fillStyle = '#3b82f6';
+                    ctx.beginPath();
+                    ctx.arc(x - 10, y, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillText('NH3+', x - 20, y - 10);
+                }
+
+                // Carboxyl group (C-terminus)
+                if (i === aminoAcids.length - 1) {
+                    ctx.fillStyle = '#ef4444';
+                    ctx.beginPath();
+                    ctx.arc(x + 10, y, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillText('COO-', x + 15, y - 10);
+                }
+
+                ctx.strokeStyle = '#6b7280';
+            });
+            ctx.stroke();
+
+            // Secondary structure - alpha helix
+            const helixX = centerX - 50;
+            const helixY = centerY + 30;
+
+            ctx.strokeStyle = '#8b5cf6';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            for (let i = 0; i < 40; i++) {
+                const angle = i * 0.4;
+                const x = helixX + i * 2;
+                const y = helixY + Math.sin(angle) * 15;
+                const z = Math.cos(angle) * 15;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+
+                // Hydrogen bonds
+                if (i % 4 === 0 && i > 0) {
+                    ctx.strokeStyle = 'rgba(147, 197, 253, 0.5)';
+                    ctx.lineWidth = 1;
+                    ctx.setLineDash([2, 2]);
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x - 8, y);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.strokeStyle = '#8b5cf6';
+                    ctx.lineWidth = 3;
+                }
+            }
+            ctx.stroke();
+
+            // Beta sheet
+            const sheetX = centerX + 30;
+            const sheetY = centerY + 30;
+
+            // Draw beta strands
+            for (let strand = 0; strand < 3; strand++) {
+                ctx.strokeStyle = '#10b981';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+
+                for (let i = 0; i < 30; i++) {
+                    const x = sheetX + i * 2;
+                    const y = sheetY + strand * 15 + (i % 2) * 3;
+
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+
+                // Hydrogen bonds between strands
+                if (strand < 2) {
+                    ctx.strokeStyle = 'rgba(147, 197, 253, 0.5)';
+                    ctx.lineWidth = 1;
+                    ctx.setLineDash([2, 2]);
+                    for (let h = 0; h < 5; h++) {
+                        ctx.beginPath();
+                        ctx.moveTo(sheetX + h * 12, sheetY + strand * 15);
+                        ctx.lineTo(sheetX + h * 12, sheetY + (strand + 1) * 15);
+                        ctx.stroke();
+                    }
+                    ctx.setLineDash([]);
+                }
+            }
+
+            // Disulfide bonds
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX - 70, centerY);
+            ctx.quadraticCurveTo(centerX - 50, centerY - 20, centerX - 30, centerY);
+            ctx.stroke();
+
+            // Cysteine residues
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.arc(centerX - 70, centerY, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(centerX - 30, centerY, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Level 13: Atomic structure
+        function drawAtomicStructure(ctx, centerX, centerY) {
+            // Glucose molecule C6H12O6
+            const atoms = [
+                // Carbon atoms (hexagon)
+                { x: centerX - 30, y: centerY - 20, element: 'C' },
+                { x: centerX + 30, y: centerY - 20, element: 'C' },
+                { x: centerX + 50, y: centerY + 20, element: 'C' },
+                { x: centerX + 30, y: centerY + 60, element: 'C' },
+                { x: centerX - 30, y: centerY + 60, element: 'C' },
+                { x: centerX - 50, y: centerY + 20, element: 'C' },
+
+                // Oxygen atoms
+                { x: centerX - 30, y: centerY - 50, element: 'O' },
+                { x: centerX + 30, y: centerY - 50, element: 'O' },
+                { x: centerX + 80, y: centerY + 20, element: 'O' },
+                { x: centerX + 30, y: centerY + 90, element: 'O' },
+                { x: centerX - 30, y: centerY + 90, element: 'O' },
+                { x: centerX - 80, y: centerY + 20, element: 'O' },
+
+                // Hydrogen atoms
+                { x: centerX - 45, y: centerY - 35, element: 'H' },
+                { x: centerX - 15, y: centerY - 35, element: 'H' },
+                { x: centerX + 15, y: centerY - 35, element: 'H' },
+                { x: centerX + 45, y: centerY - 35, element: 'H' },
+                { x: centerX + 65, y: centerY + 5, element: 'H' },
+                { x: centerX + 65, y: centerY + 35, element: 'H' },
+                { x: centerX + 45, y: centerY + 75, element: 'H' },
+                { x: centerX + 15, y: centerY + 75, element: 'H' },
+                { x: centerX - 15, y: centerY + 75, element: 'H' },
+                { x: centerX - 45, y: centerY + 75, element: 'H' },
+                { x: centerX - 65, y: centerY + 35, element: 'H' },
+                { x: centerX - 65, y: centerY + 5, element: 'H' }
+            ];
+
+            // Draw covalent bonds
+            ctx.strokeStyle = '#6b7280';
+            ctx.lineWidth = 2;
+
+            // C-C bonds (ring)
+            const carbonBonds = [
+                [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0]
+            ];
+
+            carbonBonds.forEach(bond => {
+                const atom1 = atoms[bond[0]];
+                const atom2 = atoms[bond[1]];
+                ctx.beginPath();
+                ctx.moveTo(atom1.x, atom1.y);
+                ctx.lineTo(atom2.x, atom2.y);
+                ctx.stroke();
+            });
+
+            // C-O bonds
+            const oxygenBonds = [
+                [0, 6], [1, 7], [2, 8], [3, 9], [4, 10], [5, 11]
+            ];
+
+            ctx.strokeStyle = '#ef4444';
+            ctx.lineWidth = 2;
+            oxygenBonds.forEach(bond => {
+                const atom1 = atoms[bond[0]];
+                const atom2 = atoms[bond[1]];
+                ctx.beginPath();
+                ctx.moveTo(atom1.x, atom1.y);
+                ctx.lineTo(atom2.x, atom2.y);
+                ctx.stroke();
+            });
+
+            // C-H and O-H bonds
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1;
+
+            // Connect hydrogens
+            const hydrogenBonds = [
+                [6, 12], [6, 13], [7, 14], [7, 15],
+                [8, 16], [8, 17], [9, 18], [9, 19],
+                [10, 20], [10, 21], [11, 22], [11, 23]
+            ];
+
+            hydrogenBonds.forEach(bond => {
+                const atom1 = atoms[bond[0]];
+                const atom2 = atoms[bond[1]];
+                ctx.beginPath();
+                ctx.moveTo(atom1.x, atom1.y);
+                ctx.lineTo(atom2.x, atom2.y);
+                ctx.stroke();
+            });
+
+            // Draw atoms
+            atoms.forEach(atom => {
+                let color, size;
+                switch(atom.element) {
+                    case 'C':
+                        color = '#1f2937';
+                        size = 8;
+                        break;
+                    case 'O':
+                        color = '#ef4444';
+                        size = 7;
+                        break;
+                    case 'H':
+                        color = '#e5e7eb';
+                        size = 4;
+                        break;
+                }
+
+                // Atom sphere
+                const gradient = ctx.createRadialGradient(
+                    atom.x - size/3, atom.y - size/3, 0,
+                    atom.x, atom.y, size
+                );
+                gradient.addColorStop(0, color);
+                gradient.addColorStop(0.7, color);
+                gradient.addColorStop(1, 'rgba(0,0,0,0.2)');
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(atom.x, atom.y, size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Atom label
+                ctx.fillStyle = atom.element === 'C' ? '#ffffff' : '#ffffff';
+                ctx.font = 'bold 8px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(atom.element, atom.x, atom.y);
+            });
+
+            // Water molecule for scale
+            const waterX = centerX - 100;
+            const waterY = centerY - 60;
+
+            // Oxygen
+            const oGradient = ctx.createRadialGradient(
+                waterX - 3, waterY - 3, 0,
+                waterX, waterY, 10
+            );
+            oGradient.addColorStop(0, '#ef4444');
+            oGradient.addColorStop(1, 'rgba(239, 68, 68, 0.5)');
+            ctx.fillStyle = oGradient;
+            ctx.beginPath();
+            ctx.arc(waterX, waterY, 10, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Hydrogens
+            const h1X = waterX - 15;
+            const h1Y = waterY + 12;
+            const h2X = waterX + 15;
+            const h2Y = waterY + 12;
+
+            ctx.fillStyle = '#e5e7eb';
+            ctx.beginPath();
+            ctx.arc(h1X, h1Y, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(h2X, h2Y, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Bonds
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(waterX, waterY);
+            ctx.lineTo(h1X, h1Y);
+            ctx.moveTo(waterX, waterY);
+            ctx.lineTo(h2X, h2Y);
+            ctx.stroke();
+
+            // Bond angle annotation
+            ctx.strokeStyle = 'rgba(147, 197, 253, 0.5)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.beginPath();
+            ctx.arc(waterX, waterY, 20, 0.7, 2.44, false);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.fillStyle = '#64748b';
+            ctx.font = '10px sans-serif';
+            ctx.fillText('104.5°', waterX, waterY + 30);
+        }
+
+        // Level 14: Electron orbitals
+        function drawElectronOrbitals(ctx, centerX, centerY) {
+            // Carbon atom with electron orbitals
+
+            // Nucleus
+            const nucleusSize = 15;
+            const nucleusGradient = ctx.createRadialGradient(
+                centerX, centerY, 0,
+                centerX, centerY, nucleusSize
+            );
+            nucleusGradient.addColorStop(0, '#dc2626');
+            nucleusGradient.addColorStop(0.7, '#b91c1c');
+            nucleusGradient.addColorStop(1, '#991b1b');
+
+            ctx.fillStyle = nucleusGradient;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, nucleusSize, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Protons and neutrons representation
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 10px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('6p⁺', centerX, centerY - 3);
+            ctx.fillText('6n', centerX, centerY + 5);
+
+            // 1s orbital (spherical)
+            const s1Gradient = ctx.createRadialGradient(
+                centerX, centerY, nucleusSize,
+                centerX, centerY, 40
+            );
+            s1Gradient.addColorStop(0, 'rgba(59, 130, 246, 0.6)');
+            s1Gradient.addColorStop(0.5, 'rgba(59, 130, 246, 0.3)');
+            s1Gradient.addColorStop(1, 'rgba(59, 130, 246, 0.05)');
+
+            ctx.fillStyle = s1Gradient;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 40, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 2s orbital (larger sphere)
+            const s2Gradient = ctx.createRadialGradient(
+                centerX, centerY, 40,
+                centerX, centerY, 70
+            );
+            s2Gradient.addColorStop(0, 'rgba(34, 197, 94, 0.4)');
+            s2Gradient.addColorStop(0.5, 'rgba(34, 197, 94, 0.2)');
+            s2Gradient.addColorStop(1, 'rgba(34, 197, 94, 0.05)');
+
+            ctx.fillStyle = s2Gradient;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 70, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 2p orbitals (dumbbell shaped)
+            // px orbital
+            ctx.fillStyle = 'rgba(239, 68, 68, 0.3)';
+            ctx.beginPath();
+            ctx.ellipse(centerX - 50, centerY, 30, 15, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(centerX + 50, centerY, 30, 15, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // py orbital
+            ctx.fillStyle = 'rgba(251, 146, 60, 0.3)';
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY - 50, 15, 30, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY + 50, 15, 30, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Electron probability clouds (dots)
+            for (let i = 0; i < 200; i++) {
+                const radius = Math.random() * 80;
+                const angle = Math.random() * Math.PI * 2;
+                const x = centerX + Math.cos(angle) * radius;
+                const y = centerY + Math.sin(angle) * radius;
+
+                // Probability density decreases with distance
+                const probability = Math.exp(-radius / 30);
+
+                if (Math.random() < probability) {
+                    ctx.fillStyle = `rgba(59, 130, 246, ${probability * 0.5})`;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 1, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Hydrogen atom for comparison
+            const hX = centerX + 120;
+            const hY = centerY - 50;
+
+            // Hydrogen nucleus (single proton)
+            ctx.fillStyle = '#dc2626';
+            ctx.beginPath();
+            ctx.arc(hX, hY, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 8px sans-serif';
+            ctx.fillText('p⁺', hX, hY);
+
+            // 1s orbital for hydrogen
+            const h1sGradient = ctx.createRadialGradient(hX, hY, 0, hX, hY, 30);
+            h1sGradient.addColorStop(0, 'rgba(147, 197, 253, 0.6)');
+            h1sGradient.addColorStop(0.5, 'rgba(147, 197, 253, 0.3)');
+            h1sGradient.addColorStop(1, 'rgba(147, 197, 253, 0.05)');
+
+            ctx.fillStyle = h1sGradient;
+            ctx.beginPath();
+            ctx.arc(hX, hY, 30, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Orbital energy levels diagram
+            const diagramX = centerX - 120;
+            const diagramY = centerY + 50;
+
+            ctx.strokeStyle = '#6b7280';
+            ctx.lineWidth = 1;
+
+            // Energy levels
+            const levels = [
+                { y: 0, label: '2p', electrons: 2 },
+                { y: 20, label: '2s', electrons: 2 },
+                { y: 60, label: '1s', electrons: 2 }
+            ];
+
+            levels.forEach(level => {
+                // Energy level line
+                ctx.beginPath();
+                ctx.moveTo(diagramX - 20, diagramY + level.y);
+                ctx.lineTo(diagramX + 20, diagramY + level.y);
+                ctx.stroke();
+
+                // Label
+                ctx.fillStyle = '#6b7280';
+                ctx.font = '10px sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(level.label, diagramX - 25, diagramY + level.y + 3);
+
+                // Electrons (up and down arrows)
+                for (let e = 0; e < level.electrons; e++) {
+                    const ex = diagramX - 10 + e * 20;
+                    const ey = diagramY + level.y;
+
+                    ctx.strokeStyle = e % 2 === 0 ? '#3b82f6' : '#ef4444';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(ex, ey - 5);
+                    ctx.lineTo(ex, ey - 10);
+                    // Arrow head
+                    ctx.moveTo(ex - 2, ey - 8);
+                    ctx.lineTo(ex, ey - 10);
+                    ctx.lineTo(ex + 2, ey - 8);
+                    ctx.stroke();
+                }
+            });
+        }
+
+        // Level 15: Molecular dynamics
+        function drawMolecularDynamics(ctx, centerX, centerY) {
+            // Animated molecular system with forces and movements
+            const time = Date.now() * 0.001;
+
+            // Water molecules in motion
+            const molecules = [];
+            for (let i = 0; i < 12; i++) {
+                const baseX = centerX + (i % 4 - 1.5) * 60;
+                const baseY = centerY + (Math.floor(i / 4) - 1) * 60;
+
+                // Add vibration and rotation
+                const vibration = Math.sin(time * 5 + i) * 3;
+                const rotation = time * 0.5 + i * 0.5;
+
+                molecules.push({
+                    x: baseX + Math.sin(time + i) * 20,
+                    y: baseY + Math.cos(time + i * 0.7) * 20,
+                    rotation: rotation,
+                    vibration: vibration
+                });
+            }
+
+            // Draw intermolecular forces (hydrogen bonds)
+            ctx.strokeStyle = 'rgba(147, 197, 253, 0.3)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([3, 3]);
+
+            molecules.forEach((mol1, i) => {
+                molecules.forEach((mol2, j) => {
+                    if (i < j) {
+                        const dist = Math.sqrt(
+                            Math.pow(mol2.x - mol1.x, 2) +
+                            Math.pow(mol2.y - mol1.y, 2)
+                        );
+
+                        if (dist < 80 && dist > 30) {
+                            const strength = 1 - (dist - 30) / 50;
+                            ctx.strokeStyle = `rgba(147, 197, 253, ${strength * 0.4})`;
+                            ctx.beginPath();
+                            ctx.moveTo(mol1.x, mol1.y);
+                            ctx.lineTo(mol2.x, mol2.y);
+                            ctx.stroke();
+                        }
+                    }
+                });
+            });
+            ctx.setLineDash([]);
+
+            // Draw water molecules
+            molecules.forEach(mol => {
+                ctx.save();
+                ctx.translate(mol.x, mol.y);
+                ctx.rotate(mol.rotation);
+
+                // Oxygen atom
+                const oSize = 8 + mol.vibration * 0.3;
+                const oGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, oSize);
+                oGradient.addColorStop(0, 'rgba(239, 68, 68, 0.9)');
+                oGradient.addColorStop(1, 'rgba(239, 68, 68, 0.4)');
+
+                ctx.fillStyle = oGradient;
+                ctx.beginPath();
+                ctx.arc(0, 0, oSize, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Hydrogen atoms with bond stretching
+                const bondLength = 15 + mol.vibration * 0.5;
+                const bondAngle = Math.PI / 3;
+
+                const h1X = Math.cos(-bondAngle) * bondLength;
+                const h1Y = Math.sin(-bondAngle) * bondLength;
+                const h2X = Math.cos(bondAngle) * bondLength;
+                const h2Y = Math.sin(bondAngle) * bondLength;
+
+                // H1
+                ctx.fillStyle = 'rgba(229, 231, 235, 0.9)';
+                ctx.beginPath();
+                ctx.arc(h1X, h1Y, 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // H2
+                ctx.beginPath();
+                ctx.arc(h2X, h2Y, 4, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Covalent bonds with vibration
+                ctx.strokeStyle = 'rgba(156, 163, 175, 0.8)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(h1X, h1Y);
+                ctx.moveTo(0, 0);
+                ctx.lineTo(h2X, h2Y);
+                ctx.stroke();
+
+                ctx.restore();
+            });
+
+            // Kinetic energy visualization
+            const kineticX = centerX - 100;
+            const kineticY = centerY - 80;
+
+            ctx.fillStyle = '#6b7280';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText('Kinetic Energy', kineticX, kineticY);
+
+            // Energy bar
+            const energy = (Math.sin(time * 2) + 1) * 0.5;
+            ctx.fillStyle = `hsl(${energy * 60}, 70%, 50%)`;
+            ctx.fillRect(kineticX, kineticY + 5, energy * 80, 10);
+
+            ctx.strokeStyle = '#6b7280';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(kineticX, kineticY + 5, 80, 10);
+
+            // Potential energy visualization
+            const potentialY = kineticY + 30;
+            ctx.fillStyle = '#6b7280';
+            ctx.fillText('Potential Energy', kineticX, potentialY);
+
+            const potential = (Math.cos(time * 2) + 1) * 0.5;
+            ctx.fillStyle = `hsl(${240 - potential * 60}, 70%, 50%)`;
+            ctx.fillRect(kineticX, potentialY + 5, potential * 80, 10);
+            ctx.strokeRect(kineticX, potentialY + 5, 80, 10);
+
+            // Temperature indicator
+            const temp = 298 + Math.sin(time) * 20;
+            ctx.fillStyle = '#6b7280';
+            ctx.fillText(`T = ${temp.toFixed(1)} K`, kineticX, potentialY + 35);
+
+            // Reaction coordinate (chemical reaction in progress)
+            const reactionX = centerX + 50;
+            const reactionY = centerY + 70;
+
+            // Reactant
+            ctx.fillStyle = 'rgba(34, 197, 94, 0.8)';
+            ctx.beginPath();
+            ctx.arc(reactionX - 40, reactionY, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Transition state
+            const transitionProgress = (Math.sin(time * 3) + 1) * 0.5;
+            const tsX = reactionX - 40 + transitionProgress * 80;
+            const tsY = reactionY - transitionProgress * (1 - transitionProgress) * 40;
+
+            ctx.fillStyle = 'rgba(251, 146, 60, 0.8)';
+            ctx.beginPath();
+            ctx.arc(tsX, tsY, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Product
+            ctx.fillStyle = 'rgba(99, 102, 241, 0.8)';
+            ctx.beginPath();
+            ctx.arc(reactionX + 40, reactionY, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Reaction pathway
+            ctx.strokeStyle = 'rgba(107, 114, 128, 0.5)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.beginPath();
+            ctx.moveTo(reactionX - 40, reactionY);
+            ctx.quadraticCurveTo(reactionX, reactionY - 20, reactionX + 40, reactionY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Force vectors
+            molecules.forEach((mol, i) => {
+                if (i % 3 === 0) {
+                    const forceAngle = time * 2 + i;
+                    const forceMag = 15;
+
+                    ctx.strokeStyle = 'rgba(239, 68, 68, 0.6)';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(mol.x, mol.y);
+                    ctx.lineTo(
+                        mol.x + Math.cos(forceAngle) * forceMag,
+                        mol.y + Math.sin(forceAngle) * forceMag
+                    );
+                    ctx.stroke();
+
+                    // Arrow head
+                    ctx.beginPath();
+                    ctx.moveTo(
+                        mol.x + Math.cos(forceAngle) * forceMag,
+                        mol.y + Math.sin(forceAngle) * forceMag
+                    );
+                    ctx.lineTo(
+                        mol.x + Math.cos(forceAngle - 0.3) * (forceMag - 5),
+                        mol.y + Math.sin(forceAngle - 0.3) * (forceMag - 5)
+                    );
+                    ctx.stroke();
+                }
+            });
+
+            // Request animation frame for continuous animation
+            animationFrameId = requestAnimationFrame(() => drawMolecularDynamics(ctx, centerX, centerY));
         }
 
         // Removed drawLODSystem - now using drawCellAtLOD instead
@@ -1656,6 +3443,36 @@
             }
         }
 
+        function updateCompressionDisplay(level) {
+            const display = document.getElementById('paramDisplay');
+            if (!display) return;
+
+            const compressionData = {
+                1: { params: 'color, radius', bits: '~8 bits', desc: 'Shape = circle(1), Color(4), Size(3)' },
+                2: { params: 'petals[6], colors[2]', bits: '~16 bits', desc: 'Petal count(3), Petal shape(4), Colors(9)' },
+                3: { params: 'texture_gradient[3], veins[n]', bits: '~32 bits', desc: 'Gradients(12), Vein patterns(20)' },
+                4: { params: 'cell_grid[x,y], cell_type', bits: '~128 bits', desc: 'Cell positions(64), Cell shapes(64)' },
+                5: { params: 'tissue_layers[4], density_map', bits: '~256 bits', desc: 'Layer types(32), Cell densities(224)' },
+                6: { params: 'organelles[n], positions[3D]', bits: '~512 bits', desc: 'Organelle types(128), Positions(384)' },
+                7: { params: 'membrane_proteins, internal_struct', bits: '~1KB', desc: 'Protein positions(512), Structures(512)' },
+                8: { params: 'thylakoid_stacks, grana_network', bits: '~2KB', desc: 'Stack geometry(1024), Connections(1024)' },
+                9: { params: 'lipid_bilayer, protein_complex', bits: '~4KB', desc: 'Lipid arrangement(2048), Proteins(2048)' },
+                10: { params: 'subunit_assembly, active_sites', bits: '~8KB', desc: 'Subunit positions(4096), Binding sites(4096)' },
+                11: { params: 'polymer_chains, catalytic_state', bits: '~16KB', desc: 'Chain conformations(8192), States(8192)' },
+                12: { params: 'residue_sequence, fold_pattern', bits: '~32KB', desc: 'Amino acids(16384), Secondary structure(16384)' },
+                13: { params: 'atom_positions, bond_network', bits: '~64KB', desc: 'XYZ coordinates(32768), Connectivity(32768)' },
+                14: { params: 'wavefunctions, orbital_occupancy', bits: '~128KB', desc: 'Quantum states(65536), Electron density(65536)' },
+                15: { params: 'force_field, trajectories', bits: '~256KB', desc: 'Force vectors(131072), Time evolution(131072)' }
+            };
+
+            const data = compressionData[level];
+            display.innerHTML = `
+                <div style="margin-bottom: 5px;"><strong>Parameters:</strong> ${data.params}</div>
+                <div style="margin-bottom: 5px;"><strong>Compressed to:</strong> ${data.bits}</div>
+                <div style="font-size: 11px; opacity: 0.8;">${data.desc}</div>
+            `;
+        }
+
         function updateLOD(value) {
             const level = parseInt(value);
             document.getElementById('lodValue').textContent = level;
@@ -1663,7 +3480,8 @@
             const canvas = document.getElementById('lodCanvas');
             if (canvas) {
                 const ctx = canvas.getContext('2d');
-                drawCellAtLOD(ctx, level);
+                drawFlowerAtLOD(ctx, level);
+                updateCompressionDisplay(level);
             }
 
             // Update info based on cell detail level
