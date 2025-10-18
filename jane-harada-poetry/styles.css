@@ -361,6 +361,19 @@ body::before {
     letter-spacing: 0.05em;
 }
 
+.contents-home {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding-bottom: 3px;
+    border-bottom: 2px solid transparent;
+}
+
+.contents-home:hover {
+    color: var(--moss);
+    border-bottom-color: var(--sage-green);
+}
+
 .side-toc-list {
     max-height: calc(100vh - 120px);
     overflow-y: auto;

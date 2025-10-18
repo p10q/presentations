@@ -70,6 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Contents header acts as home link
+    const contentsHome = document.getElementById('contents-home');
+    if (contentsHome) {
+        contentsHome.addEventListener('click', () => {
+            sideToc.classList.remove('open');
+            showTableOfContents();
+        });
+    }
+
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (poemViewer.classList.contains('hidden')) return;
