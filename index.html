@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tom Harada - Presentations</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='3' width='20' height='14' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='8' y1='21' x2='16' y2='21'%3E%3C/line%3E%3Cline x1='12' y1='17' x2='12' y2='21'%3E%3C/line%3E%3C/svg%3E">
+    <script src="https://unpkg.com/feather-icons"></script>
     <style>
         :root {
             --primary-color: #2563eb;
@@ -22,7 +24,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            background: linear-gradient(to bottom, #ffffff, #f9fafb);
+            background: linear-gradient(135deg, #fafafa 0%, #f5f7fa 50%, #f0f4f8 100%);
             min-height: 100vh;
             padding: 2rem;
         }
@@ -57,6 +59,14 @@
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h2 svg {
+            width: 24px;
+            height: 24px;
         }
 
         .card {
@@ -92,18 +102,32 @@
             line-height: 1.5;
         }
 
+        .card .date {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
         .links {
             display: flex;
             gap: 2rem;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-start;
             margin-top: 2rem;
+            padding-left: 1.5rem;
         }
 
         .link-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        .link-item svg {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
         }
 
         .link-item a {
@@ -145,7 +169,7 @@
             .links {
                 flex-direction: column;
                 gap: 1rem;
-                align-items: center;
+                align-items: flex-start;
             }
         }
     </style>
@@ -158,42 +182,46 @@
         </header>
 
         <section>
-            <h2>📊 Presentations</h2>
+            <h2><i data-feather="bar-chart-2"></i> Presentations</h2>
 
             <div class="card">
-                <h3><a href="ai_compression_presentation.html">AI Model Compression Techniques</a></h3>
+                <h3><a href="ai_compression_presentation.html">Two New Approaches to AI</a></h3>
+                <p class="date">October 18, 2025</p>
                 <p>An interactive presentation exploring various techniques for compressing AI models, including quantization, pruning, knowledge distillation, and architectural optimizations. Features real-time visualizations and detailed explanations of compression trade-offs.</p>
             </div>
 
             <div class="card">
-                <h3><a href="https://p10q.github.io/tom-journey/">My Journey in Tech</a></h3>
-                <p>A personal narrative about my path through technology, sharing experiences, learnings, and insights gathered along the way.</p>
+                <h3><a href="https://p10q.github.io/tom-journey/">My Journey</a></h3>
+                <p class="date">September 1, 2025</p>
+                <p>A quick narrative about my path through technology and life, including learnings and insights gathered along the way.</p>
             </div>
-
-            <p class="more-coming">More presentations coming soon...</p>
         </section>
 
         <section>
-            <h2>🔗 Connect</h2>
+            <h2><i data-feather="link"></i> Additional Links</h2>
             <div class="links">
                 <div class="link-item">
-                    <span>📝</span>
+                    <i data-feather="edit"></i>
                     <a href="https://dev.to/p10q" target="_blank" rel="noopener noreferrer">Dev.to Blog</a>
                 </div>
                 <div class="link-item">
-                    <span>🐦</span>
+                    <i data-feather="twitter"></i>
                     <a href="https://x.com/tomharada1" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
                 </div>
                 <div class="link-item">
-                    <span>👤</span>
-                    <a href="https://p10q.github.io/tom-journey/" target="_blank" rel="noopener noreferrer">About Me</a>
+                    <i data-feather="github"></i>
+                    <a href="https://github.com/p10q" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
             </div>
         </section>
 
         <footer>
-            <p>&copy; 2024 Tom Harada. All rights reserved.</p>
+            <p>&copy; 2025 Tom Harada. All rights reserved.</p>
         </footer>
     </div>
+
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>
