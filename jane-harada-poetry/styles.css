@@ -10,13 +10,13 @@
     --sand: #F5F2E8;
     --stone-gray: #8B8680;
     --cream: #FAF8F3;
-    --soft-black: #2C2825;
+    --soft-black: #1A1815;  /* Darkened from #2C2825 */
     --moss: #5A6650;
 }
 
 body {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 300;
+    font-weight: 400;  /* Increased from 300 for better legibility */
     line-height: 1.8;
     color: var(--soft-black);
     background: linear-gradient(135deg, var(--cream) 0%, var(--sand) 100%);
@@ -474,7 +474,9 @@ body::before {
     }
 
     .poem-text {
-        font-size: 1rem;
+        font-size: 1.05rem;  /* Slightly increased for mobile */
+        font-weight: 500;  /* Bolder weight for mobile readability */
+        line-height: 1.9;  /* Slightly more line height for mobile */
     }
 
     .poem-header {
@@ -484,6 +486,15 @@ body::before {
     .book-title {
         font-size: 0.9rem;
         letter-spacing: 0.2em;
+    }
+
+    /* Ensure strong contrast on mobile */
+    body {
+        font-weight: 500;
+    }
+
+    .toc-list a {
+        font-weight: 500;
     }
 }
 
