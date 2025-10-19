@@ -3,234 +3,516 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tom Harada - Presentations</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='3' width='20' height='14' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='8' y1='21' x2='16' y2='21'%3E%3C/line%3E%3Cline x1='12' y1='17' x2='12' y2='21'%3E%3C/line%3E%3C/svg%3E">
-    <script src="https://unpkg.com/feather-icons"></script>
+    <title>Tom Harada - Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='3' width='20' height='14' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='8' y1='21' x2='16' y2='21'%3E%3C/line%3E%3Cline x1='12' y1='17' x2='12' y2='21'%3E%3C/line%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --text-color: #1f2937;
-            --border-color: #e5e7eb;
-            --hover-bg: #f3f4f6;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #fafafa;
+            --bg-secondary: #f5f5f5;
+            --text-primary: #171717;
+            --text-secondary: #525252;
+            --text-tertiary: #737373;
+            --accent: #525252;
+            --accent-hover: #737373;
+            --accent-secondary: #a3a3a3;
+            --border: #e5e5e5;
+            --card-bg: linear-gradient(145deg, #ffffff, #fafafa);
+            --card-hover: 0 20px 40px -10px rgba(82, 82, 82, 0.15);
+            --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 16px -4px rgba(0, 0, 0, 0.08);
+            --gradient-bg: linear-gradient(135deg, #fafafa 0%, #f5f5f5 50%, #fafafa 100%);
+            --glow: rgba(82, 82, 82, 0.2);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #171717;
+            --text-primary: #fafafa;
+            --text-secondary: #d4d4d4;
+            --text-tertiary: #a3a3a3;
+            --accent: #d4d4d4;
+            --accent-hover: #e5e5e5;
+            --accent-secondary: #737373;
+            --border: #262626;
+            --card-bg: linear-gradient(145deg, #171717, #0a0a0a);
+            --card-hover: 0 20px 40px -10px rgba(212, 212, 212, 0.1);
+            --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 16px -4px rgba(0, 0, 0, 0.5);
+            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #171717 50%, #0a0a0a 100%);
+            --glow: rgba(212, 212, 212, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: var(--text-color);
-            background: linear-gradient(135deg, #fafafa 0%, #f5f7fa 50%, #f0f4f8 100%);
+            color: var(--text-primary);
+            background: var(--gradient-bg);
             min-height: 100vh;
-            padding: 2rem;
+            transition: background 0.3s ease, color 0.3s ease;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: float 30s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
         }
 
         .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-hover);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-primary);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        header {
+            padding: 8rem 0 6rem;
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-content {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
         h1 {
-            font-size: 2.5rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
             margin-bottom: 0.5rem;
-            color: var(--text-color);
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
         }
 
         .subtitle {
-            color: #6b7280;
+            color: var(--text-secondary);
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
             font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: var(--bg-secondary);
+        }
+
+        .social-link svg {
+            width: 18px;
+            height: 18px;
         }
 
         section {
-            margin-bottom: 3rem;
+            padding: 2rem 0;
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: both;
+        }
+
+        section:nth-child(2) { animation-delay: 0.1s; }
+        section:nth-child(3) { animation-delay: 0.2s; }
+        section:nth-child(4) { animation-delay: 0.3s; }
+
+        .section-header {
+            margin-bottom: 2rem;
+            text-align: center;
         }
 
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
         }
 
-        h2 svg {
-            width: 24px;
-            height: 24px;
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         }
 
         .card {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+            box-shadow: var(--card-hover);
+            border-color: var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
         }
 
         .card h3 {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
         .card h3 a {
-            color: var(--primary-color);
+            color: var(--text-primary);
             text-decoration: none;
+            transition: color 0.2s ease;
         }
 
-        .card h3 a:hover {
-            text-decoration: underline;
+        .card:hover h3 a {
+            color: var(--accent);
+        }
+
+        .card-date {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: inline-block;
         }
 
         .card p {
-            color: #6b7280;
-            line-height: 1.5;
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
 
-        .card .date {
-            color: #9ca3af;
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-        }
-
-        .links {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            margin-top: 2rem;
-            padding-left: 1.5rem;
-        }
-
-        .link-item {
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
         }
 
-        .link-item svg {
-            width: 18px;
-            height: 18px;
-            color: #6b7280;
+        .card:hover .card-icon {
+            transform: scale(1.05);
         }
 
-        .link-item a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
+        .card-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--accent);
+            stroke-width: 2;
         }
 
-        .link-item a:hover {
-            color: #1d4ed8;
-            text-decoration: underline;
-        }
-
-        .more-coming {
+        .book-card {
             text-align: center;
-            color: #9ca3af;
+            padding: 3rem 2rem;
+        }
+
+        .book-card h3 {
+            font-size: 1.5rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .book-card .author {
+            color: var(--text-secondary);
             font-style: italic;
-            margin-top: 1rem;
         }
 
         footer {
             text-align: center;
+            padding: 2rem 0 2rem;
             margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-color);
-            color: #6b7280;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
         }
 
-        @media (max-width: 640px) {
-            h1 {
-                font-size: 2rem;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+                width: 32px;
+                height: 32px;
             }
 
-            body {
-                padding: 1rem;
+            .theme-toggle svg {
+                width: 16px;
+                height: 16px;
             }
 
-            .links {
+            header {
+                padding: 3rem 0 3rem;
+            }
+
+            .social-links {
                 flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
+                align-items: center;
+            }
+
+            .social-link {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
             }
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="sun-icon" style="display: none;" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
     <div class="container">
         <header>
-            <h1>p10q</h1>
-            <p class="subtitle">Technical Presentations, Projects, Books, Learnings</p>
+            <div class="hero-content">
+                <h1>Tom Harada</h1>
+                <p class="subtitle">Software engineer, builder, designer. Exploring AI with presentations and creative projects.
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/p10q" target="_blank" rel="noopener noreferrer" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://x.com/tomharada1" target="_blank" rel="noopener noreferrer" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                        </svg>
+                        X
+                    </a>
+                    <a href="https://dev.to/p10q" target="_blank" rel="noopener noreferrer" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                        Dev Blog
+                    </a>
+                </div>
+            </div>
         </header>
 
         <section>
-            <h2><i data-feather="bar-chart-2"></i> Presentations</h2>
-
-            <div class="card">
-                <h3><a href="two_new_approaches_to_ai/">Two New Approaches to AI</a></h3>
-                <p class="date">October 18, 2025</p>
-                <p>Another quick presentation exploring two ideas: compressing information efficiently, knowledge distillation, and doing so agentically on-demand. Features real-time visualizations and detailed explanations of how the compression might work (80% Claude).</p>
+            <div class="section-header">
+                <h2>Recent Presentations</h2>
+                <p class="section-description">Technical talks and explorations</p>
             </div>
 
-            <div class="card">
-                <h3><a href="https://p10q.github.io/tom-journey/">Tom’s Journey</a></h3>
-                <p class="date">September 1, 2025</p>
-                <p>A quick narrative about my path through technology and life, including learnings and insights gathered along the way (70% Claude).</p>
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3><a href="two_new_approaches_to_ai/">Two New Approaches to AI</a></h3>
+                    <span class="card-date">October 2025</span>
+                    <p>Exploring compressing information efficiently, knowledge distillation, and doing so agentically on-demand. Features real-time visualizations and detailed explanations.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <svg fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3><a href="https://p10q.github.io/tom-journey/">Tom's Journey</a></h3>
+                    <span class="card-date">September 2025</span>
+                    <p>A narrative about my path through technology and life, including learnings and insights gathered along the way.</p>
+                </div>
             </div>
         </section>
 
         <section>
-            <h2><i data-feather="book"></i> Books</h2>
-
-            <div class="card">
-                <h3><a href="jane-harada-poetry/">However Briefly</a></h3>
-                <p class="date">Jane Harada</p>
+            <div class="section-header">
+                <h2>Creative Works</h2>
+                <p class="section-description">Books and poetry collections</p>
             </div>
-        </section>
 
-        <section>
-            <h2><i data-feather="link"></i> Additional Links</h2>
-            <div class="links">
-                <div class="link-item">
-                    <i data-feather="edit"></i>
-                    <a href="https://dev.to/p10q" target="_blank" rel="noopener noreferrer">Dev.to Blog</a>
-                </div>
-                <div class="link-item">
-                    <i data-feather="twitter"></i>
-                    <a href="https://x.com/tomharada1" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-                </div>
-                <div class="link-item">
-                    <i data-feather="github"></i>
-                    <a href="https://github.com/p10q" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <div class="grid grid-2">
+                <div class="card book-card">
+                    <div class="card-icon" style="margin: 0 auto 1rem;">
+                        <svg fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <h3><a href="jane-harada-poetry/">However Briefly</a></h3>
+                    <p class="author">by Jane Harada</p>
                 </div>
             </div>
         </section>
 
-        <footer>
-            <p>&copy; 2025 Tom Harada. All rights reserved.</p>
-        </footer>
     </div>
 
     <script>
-        feather.replace();
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
+        const html = document.documentElement;
+
+        const theme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', theme);
+        updateIcons(theme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcons(newTheme);
+        });
+
+        function updateIcons(theme) {
+            if (theme === 'dark') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        }
+
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
+            html.setAttribute('data-theme', 'dark');
+            updateIcons('dark');
+        }
     </script>
 </body>
 </html>
