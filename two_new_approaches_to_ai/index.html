@@ -379,21 +379,29 @@
             align-items: center;
             justify-content: center;
             font-size: 1.3rem;
+            background: transparent;
+            border: 2px solid transparent;
+            background-image: linear-gradient(#0f0f23, #0f0f23),
+                              linear-gradient(135deg, rgba(102, 126, 234, 0.6) 0%, rgba(118, 75, 162, 0.6) 100%);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            opacity: 0.5;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
         }
 
         /* Make navigation buttons translucent on mobile */
         @media (max-width: 768px) {
             .nav-btn {
-                background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                opacity: 0.4;
             }
 
             .nav-btn:hover, .nav-btn:active {
-                background: linear-gradient(135deg, rgba(102, 126, 234, 0.5) 0%, rgba(118, 75, 162, 0.5) 100%);
-                border: 1px solid rgba(255, 255, 255, 0.2);
+                opacity: 0.7;
             }
         }
 
@@ -483,6 +491,7 @@
                 width: 50px;
                 height: 50px;
                 font-size: 1.5rem;
+                border-width: 2px;
             }
 
             h1 {
@@ -703,19 +712,6 @@
                         </div>
                     </div>
 
-                    <div class="compression-comparison" style="display: grid; grid-template-columns: 1fr; gap: 0.6rem; margin-top: 1rem;">
-                        <div class="comparison-box">
-                            <h3>Task-Based Detail Selection</h3>
-                            <div style="font-size: 0.85rem; line-height: 1.6;">
-                                <p><strong>Level 1-3: Cell Type</strong><br>
-                                <span style="color: #a78bfa; font-size: 0.8rem;">Shape, size, basic structure<br>100-1,000 parameters</span></p>
-                                <p style="margin-top: 0.5rem;"><strong>Level 4-7: Organelle Analysis</strong><br>
-                                <span style="color: #a78bfa; font-size: 0.8rem;">Mitochondria, nucleus, ER detail<br>1,000-10,000 parameters</span></p>
-                                <p style="margin-top: 0.5rem;"><strong>Level 8-10: Molecular Dynamics</strong><br>
-                                <span style="color: #a78bfa; font-size: 0.8rem;">Proteins, DNA, chemical reactions<br>10,000-100,000 parameters</span></p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="right-panel">
@@ -728,10 +724,10 @@
                         <input type="range" id="lodSlider" min="1" max="15" value="8" oninput="updateLOD(this.value)">
                     </div>
 
-                    <div id="compressionParams" style="margin-top: 5px; padding: 4px 6px; background: rgba(99, 102, 241, 0.1); border-radius: 5px; font-size: 9px; line-height: 1.2; min-height: 50px;">
-                        <strong style="font-size: 9px;">Compression Parameters:</strong>
-                        <div id="paramDisplay" style="margin-top: 2px; color: #6b7280; font-size: 8px;"></div>
-                        <div id="errorThreshold" style="margin-top: 2px; padding-top: 2px; border-top: 1px solid rgba(99, 102, 241, 0.2); font-size: 8px;"></div>
+                    <div id="compressionParams" style="margin-top: 5px; padding: 8px 10px; background: rgba(99, 102, 241, 0.1); border-radius: 5px; font-size: 0.85rem; line-height: 1.4; min-height: 50px;">
+                        <strong style="font-size: 0.85rem;">Compression Parameters:</strong>
+                        <div id="paramDisplay" style="margin-top: 4px; color: #6b7280; font-size: 0.85rem;"></div>
+                        <div id="errorThreshold" style="margin-top: 4px; padding-top: 4px; border-top: 1px solid rgba(99, 102, 241, 0.2); font-size: 0.85rem;"></div>
                     </div>
                 </div>
             </div>
@@ -3654,16 +3650,16 @@
 
             const data = compressionData[level];
             display.innerHTML = `
-                <div style="margin-bottom: 1px; font-size: 8px;"><strong>Parameters:</strong> ${data.params}</div>
-                <div style="margin-bottom: 1px; font-size: 8px;"><strong>Size:</strong> ${data.bits}</div>
-                <div style="font-size: 7px; opacity: 0.8; line-height: 1.1;">${data.desc}</div>
+                <div style="margin-bottom: 2px;"><strong>Parameters:</strong> ${data.params}</div>
+                <div style="margin-bottom: 2px;"><strong>Size:</strong> ${data.bits}</div>
+                <div style="opacity: 0.8; line-height: 1.3;">${data.desc}</div>
             `;
 
             if (errorDisplay) {
                 errorDisplay.innerHTML = `
-                    <div style="margin-bottom: 1px; color: #f59e0b; font-size: 8px;"><strong>Variance:</strong> ${data.error}</div>
-                    <div style="font-size: 7px; opacity: 0.9; color: #ef4444; line-height: 1.1;">${data.threshold}</div>
-                    <div style="font-size: 7px; opacity: 0.7; margin-top: 1px; color: #10b981; line-height: 1.1;">${data.influences}</div>
+                    <div style="margin-bottom: 2px; color: #f59e0b;"><strong>Variance:</strong> ${data.error}</div>
+                    <div style="opacity: 0.9; color: #ef4444; line-height: 1.3;">${data.threshold}</div>
+                    <div style="opacity: 0.7; margin-top: 2px; color: #10b981; line-height: 1.3;">${data.influences}</div>
                 `;
             }
         }
@@ -3679,22 +3675,37 @@
                 updateCompressionDisplay(level);
             }
 
-            // Update info based on cell detail level
+            // Update info based on detail level
             let title, description, params, viewLevel;
-            if (level <= 3) {
-                title = 'Cell Overview';
-                description = 'Basic cell shape and type identification.';
+            if (level <= 4) {
+                // Whole organism view
+                title = 'Organism Overview';
+                description = 'Complete flower structure and morphology.';
                 params = 100 + (level - 1) * 300;
+                viewLevel = 'Whole Organism';
+            } else if (level <= 6) {
+                // Tissue/cell layer view
+                title = 'Tissue Structure';
+                description = 'Cellular organization and tissue layers.';
+                params = 1000 + (level - 5) * 2000;
+                viewLevel = 'Tissue Level';
+            } else if (level <= 9) {
+                // Individual cell view
+                title = 'Cell Detail';
+                description = 'Individual cell structure and organelles.';
+                params = 5000 + (level - 7) * 3000;
                 viewLevel = 'Whole Cell';
-            } else if (level <= 7) {
-                title = 'Organelle Detail';
-                description = 'Detailed organelle structure and distribution.';
-                params = 1000 + (level - 4) * 2000;
+            } else if (level <= 12) {
+                // Organelle view
+                title = 'Organelle Structure';
+                description = 'Detailed organelle components and interactions.';
+                params = 15000 + (level - 10) * 10000;
                 viewLevel = 'Organelle Level';
             } else {
-                title = 'Molecular View';
-                description = 'Molecular interactions, proteins, and DNA structure.';
-                params = 10000 + (level - 8) * 20000;
+                // Molecular view
+                title = 'Molecular Detail';
+                description = 'Molecular dynamics and atomic interactions.';
+                params = 50000 + (level - 13) * 50000;
                 viewLevel = 'Molecular Level';
             }
 
@@ -4268,7 +4279,7 @@
                     navigationTimeout = setTimeout(() => {
                         showNavigation();
                         navigationTimeout = null;
-                    }, 3000); // 3 second delay
+                    }, 500); // 500ms delay
                 }
             });
         } else {
@@ -4280,7 +4291,7 @@
                     navigationTimeout = setTimeout(() => {
                         showNavigation();
                         navigationTimeout = null;
-                    }, 2000); // 2 second delay
+                    }, 500); // 500ms delay
                 }
             }, 0);
         }
